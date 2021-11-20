@@ -70,10 +70,12 @@ export const sliderItems = [
     },
     {
       id:7,
-      img:"https://www.vintageindustries.nl/download_front/qympzk1762/2217_Arrow_Jacket_Forest.png",
+      img:"https://www.pngarts.com/files/3/Women-Jacket-PNG-High-Quality-Image.png",
     },
     {
       id:8,
       img:"https://www.pngarts.com/files/3/Women-Jacket-PNG-High-Quality-Image.png",
     },
   ]
+
+  
