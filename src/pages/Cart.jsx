@@ -23,16 +23,19 @@ const Top = styled.div`
   align-items: center;
   justify-content: space-between;
   padding: 20px;
+  ${mobile({padding:"20px 5px "})}
 `;
 
 const TopButton = styled.button`
   padding: 10px;
   font-weight: 600;
   cursor: pointer;
-  border: ${(props) => props.type === "filled" && "none"};
+  border-radius: 5px;
+  border:${(props) => props.type === "filled" ? "none " : '0.2px solid teal'}  ;
   background-color: ${(props) =>
     props.type === "filled" ? "black" : "transparent"};
   color: ${(props) => props.type === "filled" && "white"};
+  ${mobile({width:"48%"})}
 `;
 
 const TopTexts = styled.div`

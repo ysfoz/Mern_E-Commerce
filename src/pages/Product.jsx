@@ -108,6 +108,7 @@ font-weight: 500;
 `
 
 const Product = () => {
+ 
   return (
     <Container>
       <Navbar />

@@ -4,9 +4,26 @@ import ProductList from "./pages/ProductList";
 import Register from "./pages/Register";
 import Login from "./pages/Login";
 import Cart from "./pages/Cart";
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+} from "react-router-dom";
 
 const App = () => {
-  return <Cart/>
+  const user = true
+  return (
+    <Router>
+      <Routes>
+        <Route path="/register" element={user ? <Home/> : <Register/>}/>
+        <Route path="/login" element={user ? <Home/> : <Login/>}/>
+        <Route path="/" element={<Home/>} />
+        <Route path="/product/:id" element={<Product/>}/>
+        <Route path="/products/:category" element={<ProductList/>}/>
+        <Route path="/cart" element={<Cart/>}/>
+      </Routes>
+    </Router>
+  )
 };
 
 export default App;
