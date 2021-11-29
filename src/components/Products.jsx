@@ -14,10 +14,7 @@ const Products = ({ cat, filters, sort }) => {
   const [products, setProducts] = useState([]);
 
   const [filteredProducts, setFilteredProducts] = useState([]);
-  console.log(
-    "🚀 ~ file: Products.jsx ~ line 17 ~ Products ~ filteredProducts",
-    filteredProducts
-  );
+  
 
   // get all product with category
   const getAllData = async () => {
@@ -44,9 +41,22 @@ const Products = ({ cat, filters, sort }) => {
         )
       );
   };
- 
 
-
+  const getSortedData = () => {
+    if (sort === "newest") {
+      setFilteredProducts((prev) =>
+        [...prev].sort((a, b) => new Date(a.createdAt) - new Date(b.createdAt))
+      );
+    } else if (sort === "asc") {
+      setFilteredProducts((prev) =>
+        [...prev].sort((a, b) => a.price - b.price)
+      );
+    } else {
+      setFilteredProducts((prev) =>
+        [...prev].sort((a, b) => b.price - a.price)
+      );
+    }
+  };
 
   useEffect(() => {
     getAllData();
@@ -56,11 +66,17 @@ const Products = ({ cat, filters, sort }) => {
     getFilteredData();
   }, [products, cat, filters]);
 
+  useEffect(() => {
+    getSortedData();
+  }, [sort]);
+
   return (
     <Container>
-      {filteredProducts.map((item) => (
-        <Product item={item} key={item.id} />
-      ))}
+      {cat
+        ? filteredProducts.map((item) => (<Product item={item} key={item._id} />))
+        : products
+            .slice(0, 8)
+            .map((item) => ( <Product item={item} key={item._id} />))}
     </Container>
   );
 };
