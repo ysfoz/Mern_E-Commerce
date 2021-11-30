@@ -6,12 +6,23 @@ import Footer from "../components/Footer";
 import Navbar from "../components/Navbar";
 import { mobile } from "../responsive";
 import { useSelector } from "react-redux";
+import StripeCheckout from "react-stripe-checkout";
+import { useState, useEffect } from "react";
+import { userRequest } from "../helper/requestMethods";
+import { useNavigate } from "react-router-dom";
+// import axios from "axios";
+
+const KEY = process.env.REACT_APP_STRIPE;
+console.log("🚀 ~ file: Cart.jsx ~ line 16 ~ KEY", KEY)
+
+
+
 
 const Container = styled.div``;
 
 const Wrapper = styled.div`
   padding: 20px;
-  ${mobile({padding:"10px"})}
+  ${mobile({ padding: "10px" })}
 `;
 
 const Title = styled.h1`
@@ -24,7 +35,7 @@ const Top = styled.div`
   align-items: center;
   justify-content: space-between;
   padding: 20px;
-  ${mobile({padding:"20px 5px "})}
+  ${mobile({ padding: "20px 5px " })}
 `;
 
 const TopButton = styled.button`
@@ -32,15 +43,16 @@ const TopButton = styled.button`
   font-weight: 600;
   cursor: pointer;
   border-radius: 5px;
-  border:${(props) => props.type === "filled" ? "none " : '0.2px solid teal'}  ;
+  border: ${(props) =>
+    props.type === "filled" ? "none " : "0.2px solid teal"};
   background-color: ${(props) =>
     props.type === "filled" ? "black" : "transparent"};
   color: ${(props) => props.type === "filled" && "white"};
-  ${mobile({width:"48%"})}
+  ${mobile({ width: "48%" })}
 `;
 
 const TopTexts = styled.div`
-${mobile({display:"none"})}
+  ${mobile({ display: "none" })}
 `;
 const TopText = styled.span`
   text-decoration: underline;
@@ -51,7 +63,7 @@ const TopText = styled.span`
 const Bottom = styled.div`
   display: flex;
   justify-content: space-between;
-  ${mobile({flexDirection:"column"})}
+  ${mobile({ flexDirection: "column" })}
 `;
 const Info = styled.div`
   flex: 3;
@@ -60,7 +72,7 @@ const Info = styled.div`
 const Product = styled.div`
   display: flex;
   justify-content: space-between;
-  ${mobile({flexDirection:"column"})}
+  ${mobile({ flexDirection: "column" })}
 `;
 const ProductDetail = styled.div`
   flex: 2;
@@ -100,18 +112,17 @@ const ProductAmountContainer = styled.div`
 const ProductAmount = styled.div`
   font-size: 24px;
   margin: 5px;
-  ${mobile({margin:"5px 15px"})}
+  ${mobile({ margin: "5px 15px" })}
 `;
 const ProductPrice = styled.div`
   font-size: 30px;
   font-weight: 200;
-  ${mobile({marginBottom:"15px"})}
+  ${mobile({ marginBottom: "15px" })}
 `;
 const Hr = styled.hr`
   background-color: #eee;
   border: none;
   height: 1px;
-  
 `;
 
 const Summery = styled.div`
@@ -146,9 +157,34 @@ const Button = styled.button`
 `;
 
 const Cart = () => {
-const cart = useSelector(state => state.cart)
+  const cart = useSelector((state) => state.cart);
+  const [stripeToken, setStripeToken] = useState(null);
+  const navigate = useNavigate();
 
 
+  const onToken = (token) => {
+    setStripeToken(token);
+  };
+
+  const makeRequest = async () => {
+    console.log(stripeToken.id)
+    try {
+      const res = await userRequest?.post("/checkout/payment", {
+        tokenId: stripeToken?.id,
+        amount: 500,
+      });
+      console.log(res)
+      navigate("/success",{
+        stripeData: res.data,
+        products: cart });
+    } catch {}
+  };
+
+  useEffect(() => {
+    
+    stripeToken && makeRequest();
+  }, [stripeToken, cart.total, navigate]);
+  
 
   return (
     <Container>
@@ -166,41 +202,40 @@ const cart = useSelector(state => state.cart)
         </Top>
         <Bottom>
           <Info>
+            {cart?.products?.map((product, index) => (
+              <Product key={index}>
+                <ProductDetail>
+                  <Image src={product.img} />
+                  <Details>
+                    <ProductName>
+                      <b>Product:</b>
+                      {product.title}
+                    </ProductName>
+                    <ProductId>
+                      <b>ID:</b>
+                      {product._id}
+                    </ProductId>
+                    <ProductColor color={product.color} />
+                    <ProductSize>
+                      <b>Size:</b> {product.ProductSize}
+                    </ProductSize>
+                  </Details>
+                </ProductDetail>
+                <PriceDetail>
+                  <ProductAmountContainer>
+                    <Add />
+                    <ProductAmount>{product.quantity}</ProductAmount>
 
-            {cart?.products?.map((product,index)=> (
-
-            
-            <Product key={index}>
-              <ProductDetail>
-                <Image src={product.img} />
-                <Details>
-                  <ProductName>
-                    <b>Product:</b>{product.title}
-                  </ProductName>
-                  <ProductId>
-                    <b>ID:</b>{product._id}
-                  </ProductId>
-                  <ProductColor color={product.color} />
-                  <ProductSize>
-                    <b>Size:</b> {product.ProductSize}
-                  </ProductSize>
-                </Details>
-              </ProductDetail>
-              <PriceDetail>
-                <ProductAmountContainer>
-                  <Add />
-                  <ProductAmount>{ product.quantity }</ProductAmount>
-
-                  <Remove />
-                </ProductAmountContainer>
-                <ProductPrice>$ {product.price * product.quantity}</ProductPrice>
-              </PriceDetail>
-            </Product>
-
+                    <Remove />
+                  </ProductAmountContainer>
+                  <ProductPrice>
+                    $ {product.price * product.quantity}
+                  </ProductPrice>
+                </PriceDetail>
+              </Product>
             ))}
 
-<Hr />
-            
+            <Hr />
           </Info>
           <Summery>
             <SummeryTitle>ORDER SUMMERY</SummeryTitle>
@@ -220,7 +255,18 @@ const cart = useSelector(state => state.cart)
               <SummeryItemText>Total</SummeryItemText>
               <SummeryItemPrice>$ {cart.total}</SummeryItemPrice>
             </SummeryItem>
-            <Button>CHECKOUT NOW</Button>
+            <StripeCheckout
+              name="Shopping"
+              image="https://i1.silvergames.com/j/b/shopping-cart-hero.jpg"
+              billingAddress
+              shippingAddress
+              description={`Your total is $${cart.total}`}
+              amount={cart.total * 100}
+              token={onToken}
+              stripeKey={KEY}
+            >
+              <Button>CHECKOUT NOW</Button>
+            </StripeCheckout>
           </Summery>
         </Bottom>
       </Wrapper>
