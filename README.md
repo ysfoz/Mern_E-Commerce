@@ -1,3 +1,17 @@
+
+
+## !!! This project hasn't completed yet !!!
+<br/>
+<br/>
+
+# For Stripe(payment) .env config
+
+REACT_APP_STRIPE = 
+
+# Heroku Api 
+
+This project's Backend created with Node.js & MongoDB and deployed [Heroku](https://mern-e-commerce-api.herokuapp.com/api)
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).

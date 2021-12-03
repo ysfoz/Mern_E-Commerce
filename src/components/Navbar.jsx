@@ -1,103 +1,139 @@
-
 import { Badge } from "@material-ui/core";
 import { Search, ShoppingCartOutlined } from "@material-ui/icons";
 import React from "react";
 import styled from "styled-components";
 import { mobile } from "../responsive";
-import { useSelector } from "react-redux"
+import { useSelector, useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
+import { logoutSuccess } from "../redux/userRedux"
 
 const Container = styled.div`
   height: 60px;
-  ${mobile({height:"50px"})}
- 
+  ${mobile({ height: "50px" })}
 `;
 const Wrapper = styled.div`
   padding: 10px 20px;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  ${mobile({padding:"10px 0px"})}
+  ${mobile({ padding: "10px 0px" })}
 `;
 const Left = styled.div`
-flex: 1;
-display: flex;
-align-items: center;
+  flex: 1;
+  display: flex;
+  align-items: center;
 `;
 
 const Language = styled.span`
-   font-size :14px ;
-   cursor: pointer;
-   ${mobile({display:"none"})}
-`
+  font-size: 14px;
+  cursor: pointer;
+  ${mobile({ display: "none" })}
+`;
 
-const SearchContainer =styled.div`
-    border:0.5px solid lightgray ;
-    display: flex;
-    align-items: center;
-    margin-left: 25px;
-`
+const SearchContainer = styled.div`
+  border: 0.5px solid lightgray;
+  display: flex;
+  align-items: center;
+  margin-left: 25px;
+`;
 const Input = styled.input`
-border: none;
-${mobile({width:"50px"})}
-`
+  border: none;
+  ${mobile({ width: "50px" })}
+`;
 
 const Center = styled.div`
-flex: 1;
-text-align: center;
+  flex: 1;
+  text-align: center;
 `;
 
 const Logo = styled.h1`
-    font-weight: bold;
-    ${mobile({fontSize:"24px"})}
-`
+  font-weight: bold;
+  ${mobile({ fontSize: "24px" })}
+`;
+
 const Right = styled.div`
-flex: 1;
-display: flex;
-justify-content: flex-end;
-${mobile({flex:2,justifyContent:"center"})}
+  flex: 1;
+  display: flex;
+  justify-content: flex-end;
+  ${mobile({ flex: 2, justifyContent: "center" })}
 `;
 
 const MenuItem = styled.div`
-font-size: 14;
-cursor: pointer;
-margin-left: 25px;
-${mobile({fontSize:"12px",marginLeft:"10px"})}
-`
+  font-size: 14;
+  cursor: pointer;
+  margin-left: 25px;
+  ${mobile({ fontSize: "12px", marginLeft: "10px" })}
+`;
 
 const Navbar = () => {
-const { quantity } = useSelector(state => state.cart)
+  const { quantity } = useSelector((state) => state.cart);
+  const user = useSelector((state) => state.user.currentUser);
+  const dispatch = useDispatch()
+
+  const logout = () => {
+    dispatch(logoutSuccess())
+    
+  }
 
   return (
     <Container>
       <Wrapper>
-          <Left>
-              <Language>EN</Language>
-              <SearchContainer>
-                  <Input placeholder="Search"/>
-                  <Search style={{color:"gray", fontSize:16}}/>
-                 
-              </SearchContainer>
-              </Left>
-          <Center>
-              <Logo>Shop</Logo>
-          </Center>
-          <Right>
-              <MenuItem>REGISTER</MenuItem>
-              <MenuItem>SIGN IN</MenuItem>
-              <Link to={"/cart"}>
-              <MenuItem>
-              <Badge badgeContent={ quantity } color="primary">
-              <ShoppingCartOutlined/>
-              </Badge>
-              </MenuItem>
+        <Left>
+          <Language>EN</Language>
+          <SearchContainer>
+            <Input placeholder="Search" />
+            <Search style={{ color: "gray", fontSize: 16 }} />
+          </SearchContainer>
+        </Left>
+        <Center>
+          <Link
+            to="/"
+            style={{
+              textDecoration: "none",
+              color: "black",
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+            }}
+          >
+            <Logo>Shop</Logo>
+          </Link>
+        </Center>
+        <Right>
+          {!user ? (
+            <>
+              {" "}
+              <Link
+                to="/register"
+                style={{ textDecoration: "none", color: "black" }}
+              >
+                <MenuItem>REGISTER</MenuItem>
               </Link>
-          </Right>
+              <Link
+                to="/login"
+                style={{ textDecoration: "none", color: "black" }}
+              >
+                <MenuItem>SIGN IN</MenuItem>
+              </Link>{" "}
+            </>
+          ) : (
+            <>
+              
+                <MenuItem onClick={logout} >LOGOUT</MenuItem>
+             
+              <Link to={"/cart"}>
+                <MenuItem>
+                  <Badge badgeContent={quantity} color="primary">
+                    <ShoppingCartOutlined />
+                  </Badge>
+                </MenuItem>
+              </Link>{" "}
+            </>
+          )}
+        </Right>
       </Wrapper>
     </Container>
   );
 };
 
 export default Navbar;
-
-

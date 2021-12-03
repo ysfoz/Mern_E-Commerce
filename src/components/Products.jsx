@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
-import { popularProducts } from "../data";
 import Product from "./Product";
 import axios from "axios";
 
@@ -16,20 +15,20 @@ const Products = ({ cat, filters, sort }) => {
   const [filteredProducts, setFilteredProducts] = useState([]);
   
 
-  // get all product with category
+  // get all products with category
   const getAllData = async () => {
     try {
       const res = await axios.get(
         cat
-          ? `http://localhost:5001/api/products?category=${cat}`
-          : `http://localhost:5001/api/products`
+          ? `https://mern-e-commerce-api.herokuapp.com/api/products?category=${cat}`
+          : `https://mern-e-commerce-api.herokuapp.com/api/products`
       );
-      setProducts(res.data);
+      setProducts(res?.data);
     } catch (error) {
       console.log(error);
     }
   };
-
+  
   // filtered products by color and size
   const getFilteredData = () => {
     cat &&
