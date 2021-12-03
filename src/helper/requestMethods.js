@@ -1,7 +1,8 @@
 import axios from "axios";
 import { loginFailure, loginStart, loginSuccess } from "../redux/userRedux";
 
-const BASE_URL = "http://localhost:5001/api/";
+const BASE_URL ="https://mern-e-commerce-api.herokuapp.com/api/";
+
 const TOKEN = JSON.parse(JSON.parse(localStorage.getItem("persist:root")).user).currentUser.jwtToken
   
 export const publicRequest = axios.create({
