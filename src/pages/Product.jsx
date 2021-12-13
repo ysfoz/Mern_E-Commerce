@@ -9,7 +9,8 @@ import { mobile } from "../responsive";
 import { useLocation } from "react-router-dom";
 import { publicRequest } from "../helper/requestMethods";
 import { addProduct } from "../redux/cartRedux";
-import { useDispatch } from "react-redux"
+import { useDispatch, useSelector } from "react-redux"
+import { useNavigate } from 'react-router-dom'
 
 const Container = styled.div``;
 const Wrapper = styled.div`
@@ -112,6 +113,9 @@ const Product = () => {
   const [color,setColor] = useState('')
   const [size,setSize] = useState('')
   const dispatch = useDispatch()
+  const navigate = useNavigate()
+  const currentUser = useSelector(state => state.user.currentUser)
+  console.log("🚀 ~ file: Product.jsx ~ line 118 ~ Product ~ currentUser", currentUser)
   
 
   const fetchData = async () => {
@@ -173,7 +177,7 @@ const Product = () => {
               <Amount>{quantity}</Amount>
               <Add onClick={()=> handleQuantity("inc")}/>
             </AmountContainer>
-            <Button onClick={handleClick}>ADD TO CART</Button>
+            <Button onClick={currentUser ?  handleClick : navigate("/login")}>ADD TO CART</Button>
           </AddContainer>
         </InfoContainer>
       </Wrapper>

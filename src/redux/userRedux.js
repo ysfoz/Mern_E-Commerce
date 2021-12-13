@@ -3,28 +3,60 @@ import { createSlice } from "@reduxjs/toolkit";
 const userSlice = createSlice({
   name: "user",
   initialState: {
+    users: [],
     currentUser: null,
     isFetching: false,
     error: false,
+   
   },
   reducers: {
-    fetchStart: (state) => {
+    getUserStart: (state) => {
       state.isFetching = true;
       state.error = false;
+    },
+    getUserFailure: (state, action) => {
+      state.isFetching = false;
+      state.error = true;
     },
     loginSuccess: (state, action) => {
       state.isFetching = false;
       state.currentUser = action.payload;
     },
-    fetchFailure: (state, action) => {
-      state.isFetching = false;
-      state.error = true;
+    registerSuccess:(state,action) => {
+      state.isFetching = false
+      state.users.push(action.payload)
     },
-    logoutSuccess:(state) =>{
+    logoutSuccess:(state)=>{
       state.currentUser = null
+    },
+    getAllUsersSuccess: (state, action) => {
+      state.isFetching = false;
+      state.users = action.payload;
+    },
+    getUserDeleteSuccess: (state, action) => {
+      state.isFetching = false;
+      state.users.splice(
+        state.users.findIndex((item) => item._id === action.payload.id),
+        1
+      );
+    },
+    getUserUpdate:(state,action)=>{
+      state.isFetching =false
+      state.users[state.users.findIndex((item) => item._id === action.payload.id)] = action.payload.user
     }
+   
   },
 });
 
-export const { fetchStart, fetchFailure, loginSuccess, logoutSuccess } = userSlice.actions;
+export const {
+  getUserStart,
+  loginSuccess,
+  getUserFailure,
+  getAllUsersSuccess,
+  getUserDeleteSuccess,
+  logoutSuccess,
+  registerSuccess,
+  getUserUpdate
+  
+} = userSlice.actions;
 export default userSlice.reducer;

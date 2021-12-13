@@ -1,5 +1,5 @@
 import axios from "axios";
-import { fetchFailure, fetchStart, loginSuccess } from "../redux/userRedux";
+import { getUserFailure, getUserStart, loginSuccess,registerSuccess,logoutSuccess } from "../redux/userRedux";
 
 const BASE_URL ="https://mern-e-commerce-api.herokuapp.com/api/";
 
@@ -18,13 +18,40 @@ export const userRequest = axios.create({
   headers: { token: `Bearer ${TOKEN}` },
 });
 
+
+// USER
+
+// Login
 export const login = async (dispatch, user) => {
-  dispatch(fetchStart());
+  dispatch(getUserStart());
   try {
     const res = await publicRequest.post("/auth/login", user);
     console.log(res)
-    dispatch(loginSuccess(res.data));
+    dispatch(loginSuccess(res?.data));
   } catch (error) {
-    dispatch(fetchFailure());
+    dispatch(getUserFailure());
   }
 };
+
+//Logout
+export const logout = async (dispatch) => {
+  dispatch(getUserStart());
+  try {
+    dispatch(logoutSuccess());
+  } catch (error) {
+    dispatch(getUserFailure());
+  }
+};
+
+//Create / Register
+export const createUser = async (dispatch, newuser) => {
+  dispatch(getUserStart());
+  try {
+    const res = await publicRequest.post("/auth/register", newuser);
+    dispatch(registerSuccess(res?.data));
+  } catch (error) {
+    dispatch(getUserFailure());
+  }
+};
+
+

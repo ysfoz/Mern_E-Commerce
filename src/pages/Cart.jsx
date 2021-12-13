@@ -10,10 +10,10 @@ import StripeCheckout from "react-stripe-checkout";
 import { useState, useEffect } from "react";
 import { userRequest } from "../helper/requestMethods";
 import { useNavigate } from "react-router-dom";
-// import axios from "axios";
+
 
 const KEY = process.env.REACT_APP_STRIPE;
-console.log("🚀 ~ file: Cart.jsx ~ line 16 ~ KEY", KEY)
+
 
 
 
@@ -167,7 +167,6 @@ const Cart = () => {
   };
 
   const makeRequest = async () => {
-    console.log(stripeToken.id)
     try {
       const res = await userRequest?.post("/checkout/payment", {
         tokenId: stripeToken?.id,
