@@ -3,7 +3,8 @@ import styled from "styled-components";
 import { mobile } from "../responsive";
 import { login } from "../helper/requestMethods";
 import { useDispatch, useSelector } from "react-redux";
-import {useNavigate} from "react-router-dom"
+import { useFormik } from "formik";
+import * as Yup from "yup";
 
 const Container = styled.div`
   width: 100vw;
@@ -48,60 +49,94 @@ const Button = styled.button`
   cursor: pointer;
   margin-bottom: 10px;
   border-radius: 5px;
-  &:disabled{
-      color:green;
-      cursor: not-allowed;
+  &:disabled {
+    color: green;
+    cursor: not-allowed;
   }
 `;
 
 const Error = styled.span`
-    color: red;
-`
+  color: red;
+  margin:7px;
+`;
 
 const Link = styled.a`
-  margin: 5px 0px;
-  font-size: 12px;
-  text-decoration: underline;
+  width: 40%;
+  border: none;
+  padding: 15px 20px;
+  color: teal;
+  cursor: pointer;
+  margin-bottom: 10px;
+  border-radius: 5px;
+  text-decoration: none;
   cursor: pointer;
 `;
 
-
+const ButtonWrapper = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items:center;
+`;
 
 const Login = () => {
-  const [username, setUsername] = useState("");
-  const [password, setPassword] = useState("");
   const dispatch = useDispatch();
   const { isFetching, error } = useSelector((state) => state.user);
-  // const navigate = useNavigate()
 
-  const handleClick = (e) => {
-    e.preventDefault();
-    login(dispatch, { username, password });
-   
-
-  };
+  const formik = useFormik({
+    initialValues: {
+      username: "",
+      password: "",
+    },
+    validationSchema: Yup.object({
+      username: Yup.string()
+        .required("username is required")
+        .min(3, "Username is too short - should be 3 chars minimum."),
+      password: Yup.string()
+        .required("No password provided.")
+        .min(6, "Password is too short - should be 6 chars minimum."),
+    }),
+    onSubmit: (values) => {
+      login(dispatch, values);
+    },
+  });
 
   return (
     <Container>
       <Wrapper>
         <Title>SIGN IN</Title>
-        <Form>
+        <Form onSubmit={formik.handleSubmit}>
           <Input
             placeholder="username"
-            onChange={(e) => setUsername(e.target.value)}
+            id="username"
+            name="username"
+            type="text"
+            placeholder="username"
+            onChange={formik.handleChange}
+            onBlur={formik.handleBlur}
+            value={formik.values.username}
           />
+          {formik.touched.username && formik.errors.username ? (
+            <Error>{formik.errors.username}</Error>
+          ) : null}
           <Input
-            placeholder="password"
+            id="password"
             type="password"
-            onChange={(e) => setPassword(e.target.value)}
+            placeholder="password"
+            name="password"
+            onChange={formik.handleChange}
+            onBlur={formik.handleBlur}
+            value={formik.values.password}
           />
-
-          <Button onClick={handleClick} disabled={isFetching}>LOGIN</Button>
-          {error && 
-          <Error>Something went wrong !!!</Error>
-}
-          <Link>DO NOT YOU REMAMBER THE PASSWORD?</Link>
-          <Link href="/register" >CREATE A NEW ACCOUNT</Link>
+          {formik.touched.password && formik.errors.password ? (
+            <Error>{formik.errors.password}</Error>
+          ) : null}
+          <ButtonWrapper>
+            <Button type="submit" disabled={isFetching}>
+              LOGIN
+            </Button>
+            <Link href="/register">Create a new account</Link>
+          </ButtonWrapper>
+          {error && <Error>Something went wrong !!!</Error>}
         </Form>
       </Wrapper>
     </Container>

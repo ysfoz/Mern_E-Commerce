@@ -11,7 +11,7 @@ import {
 } from "firebase/storage";
 import app from "../helper/firebase";
 import { createUser } from '../helper/requestMethods'
-import { useDispatch } from "react-redux";
+import { useDispatch,useSelector } from "react-redux";
 import { useNavigate } from 'react-router'
 
 
@@ -61,6 +61,9 @@ const Button = styled.button`
   background-color: ${props => props.bg};
   color: ${props => props.color};
   cursor: pointer;
+  &:disabled {
+    color: green;
+    cursor: not-allowed;
 `;
 const Error = styled.div`
   color:darkred;
@@ -79,6 +82,7 @@ const Label = styled.label`
 const ButtonWrapper =styled.div`
   display:flex;
   justify-content:space-between;
+  align-items:center;
 `
 
 
@@ -86,6 +90,7 @@ const Register = () => {
   const [imgFile, setImgFile] = useState(null);
   const dispatch = useDispatch()
   const navigate = useNavigate()
+  const { isFetching, error } = useSelector((state) => state.user);
   
 
 
@@ -225,11 +230,11 @@ const Register = () => {
             in accordance with the <b>PRIVACY POLICY</b>
           </Agreement>
           <ButtonWrapper>
-          <Button type="submit" color="white" bg="teal" >CREATE</Button>
+          <Button type="submit" color="white" bg="teal" disabled={isFetching} >CREATE</Button>
           <Button type="button" color="teal" bg="white" onClick={()=> navigate('/login')} >SIGN IN</Button>
           </ButtonWrapper>
         </Form>
-          
+        {error && <Error>Something went wrong !!!</Error>}
       </Wrapper>
     </Container>
   );
