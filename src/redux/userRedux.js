@@ -29,10 +29,7 @@ const userSlice = createSlice({
     logoutSuccess:(state)=>{
       state.currentUser = null
     },
-    getAllUsersSuccess: (state, action) => {
-      state.isFetching = false;
-      state.users = action.payload;
-    },
+   
     getUserDeleteSuccess: (state, action) => {
       state.isFetching = false;
       state.users.splice(

@@ -5,6 +5,7 @@ import Register from "./pages/Register";
 import Login from "./pages/Login";
 import Cart from "./pages/Cart";
 import Success from "./pages/Success"
+import Profile from "./pages/Profile"
 import {
   BrowserRouter as Router,
   Routes,
@@ -24,6 +25,7 @@ const App = () => {
         <Route path="/products/:category" element={<ProductList/>}/>
         <Route path="/cart" element={<Cart/>}/>
         <Route path="/success" element={<Success/>}/>
+        <Route path="/profile/:id" element={<Profile/>}/>
       </Routes>
     </Router>
   )

@@ -1,5 +1,5 @@
 import axios from "axios";
-import { getUserFailure, getUserStart, loginSuccess,registerSuccess,logoutSuccess } from "../redux/userRedux";
+import { getUserFailure, getUserStart, loginSuccess,registerSuccess,logoutSuccess,getUserDeleteSuccess,getUserUpdate } from "../redux/userRedux";
 
 const BASE_URL ="https://mern-e-commerce-api.herokuapp.com/api/";
 
@@ -53,5 +53,32 @@ export const createUser = async (dispatch, newuser) => {
     dispatch(getUserFailure());
   }
 };
+
+//update
+export const updateUser = async (dispatch, id, user) => {
+  
+  dispatch(getUserStart());
+  try {
+   await userRequest.put(`/users/${id}`, user);
+    
+    dispatch(getUserUpdate(id, user));
+  } catch (error) {
+    dispatch(getUserFailure());
+  }
+};
+
+//delete
+
+export const deleteUser = async (id, dispatch) => {
+  dispatch(getUserStart());
+  try {
+    await userRequest.delete(`/users/${id}`);
+
+    dispatch(getUserDeleteSuccess(id));
+  } catch (error) {
+    dispatch(getUserFailure());
+  }
+};
+
 
 
