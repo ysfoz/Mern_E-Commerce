@@ -1,19 +1,12 @@
+import { Container } from "./styles/Products.style";
 import React, { useState, useEffect } from "react";
-import styled from "styled-components";
 import Product from "./Product";
 import axios from "axios";
 
-const Container = styled.div`
-  padding: 20px;
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
-`;
 const Products = ({ cat, filters, sort }) => {
   const [products, setProducts] = useState([]);
 
   const [filteredProducts, setFilteredProducts] = useState([]);
-  
 
   // get all products with category
   const getAllData = async () => {
@@ -28,7 +21,7 @@ const Products = ({ cat, filters, sort }) => {
       console.log(error);
     }
   };
-  
+
   // filtered products by color and size
   const getFilteredData = () => {
     cat &&
@@ -72,10 +65,10 @@ const Products = ({ cat, filters, sort }) => {
   return (
     <Container>
       {cat
-        ? filteredProducts.map((item) => (<Product item={item} key={item._id} />))
+        ? filteredProducts.map((item) => <Product item={item} key={item._id} />)
         : products
             .slice(0, 8)
-            .map((item) => ( <Product item={item} key={item._id} />))}
+            .map((item) => <Product item={item} key={item._id} />)}
     </Container>
   );
 };
