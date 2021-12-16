@@ -3,16 +3,17 @@ import { createSlice } from "@reduxjs/toolkit";
 const userSlice = createSlice({
   name: "user",
   initialState: {
-    users: [],
     currentUser: null,
     isFetching: false,
     error: false,
+    jwtToken:null
    
   },
   reducers: {
     getUserStart: (state) => {
       state.isFetching = true;
       state.error = false;
+      
     },
     getUserFailure: (state, action) => {
       state.isFetching = false;
@@ -21,25 +22,33 @@ const userSlice = createSlice({
     loginSuccess: (state, action) => {
       state.isFetching = false;
       state.currentUser = action.payload;
+      state.jwtToken = state.currentUser.jwtToken
+      console.log("🚀 ~ file: userRedux.js ~ line 26 ~ jwtToken", state.jwtToken)
     },
-    registerSuccess:(state,action) => {
+    registerSuccess:(state) => {
       state.isFetching = false
-      state.users.push(action.payload)
+      state.error = false;
     },
     logoutSuccess:(state)=>{
+      state.error = false;
       state.currentUser = null
+      state.jwtToken = null;
     },
    
-    getUserDeleteSuccess: (state, action) => {
+    getUserDeleteSuccess: (state) => {
+      state.error = false;
       state.isFetching = false;
-      state.users.splice(
-        state.users.findIndex((item) => item._id === action.payload.id),
-        1
-      );
+      state.currentUser = null;
+      state.jwtToken = null;
+     
     },
     getUserUpdate:(state,action)=>{
+      state.error = false;
       state.isFetching =false
-      state.users[state.users.findIndex((item) => item._id === action.payload.id)] = action.payload.user
+      state.currentUser = action.payload
+      // state.currentUser = {...action.payload, jwtToken:state.jwtToken}
+     
+      
     }
    
   },
