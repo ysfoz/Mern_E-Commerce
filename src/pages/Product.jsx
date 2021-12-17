@@ -41,10 +41,7 @@ const Product = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const currentUser = useSelector((state) => state.user.currentUser);
-  console.log(
-    "🚀 ~ file: Product.jsx ~ line 118 ~ Product ~ currentUser",
-    currentUser
-  );
+  
 
   const fetchData = async () => {
     try {

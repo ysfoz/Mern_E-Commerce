@@ -1,14 +1,9 @@
 import {
   Container,
-  ProductAmount,
-  ProductAmountContainer,
   Button,
   Bottom,
   TopButton,
-  Details,
-  PriceDetail,
   Hr,
-  ProductName,
   Summery,
   SummeryItem,
   SummeryItemPrice,
@@ -20,16 +15,9 @@ import {
   TopText,
   TopTexts,
   Info,
-  Product,
-  ProductColor,
-  ProductDetail,
-  ProductId,
-  ProductPrice,
-  ProductSize,
-  Image
 } from "./styles/Cart.style";
-import { Add, Remove } from "@material-ui/icons";
 import React from "react";
+import CartProduct from "../components/CartProduct";
 
 import Announcement from "../components/Announcement";
 import Footer from "../components/Footer";
@@ -86,36 +74,7 @@ const Cart = () => {
         <Bottom>
           <Info>
             {cart?.products?.map((product, index) => (
-              <Product key={index}>
-                <ProductDetail>
-                  <Image src={product.img} />
-                  <Details>
-                    <ProductName>
-                      <b>Product:</b>
-                      {product.title}
-                    </ProductName>
-                    <ProductId>
-                      <b>ID:</b>
-                      {product._id}
-                    </ProductId>
-                    <ProductColor color={product.color} />
-                    <ProductSize>
-                      <b>Size:</b> {product.ProductSize}
-                    </ProductSize>
-                  </Details>
-                </ProductDetail>
-                <PriceDetail>
-                  <ProductAmountContainer>
-                    <Add />
-                    <ProductAmount>{product.quantity}</ProductAmount>
-
-                    <Remove />
-                  </ProductAmountContainer>
-                  <ProductPrice>
-                    $ {product.price * product.quantity}
-                  </ProductPrice>
-                </PriceDetail>
-              </Product>
+              <CartProduct product={product} index={index} />
             ))}
 
             <Hr />
@@ -132,11 +91,15 @@ const Cart = () => {
             </SummeryItem>
             <SummeryItem>
               <SummeryItemText>Shipping Discount</SummeryItemText>
-              <SummeryItemPrice>$ -5.90</SummeryItemPrice>
+              <SummeryItemPrice>
+                {cart.total >= 60 ? "$ -5.90" : " $ 0.00"}
+              </SummeryItemPrice>
             </SummeryItem>
             <SummeryItem type="total">
               <SummeryItemText>Total</SummeryItemText>
-              <SummeryItemPrice>$ {cart.total}</SummeryItemPrice>
+              <SummeryItemPrice>
+                $ {cart.total >= 60 ? cart.total : cart.total + 5.9}
+              </SummeryItemPrice>
             </SummeryItem>
             <StripeCheckout
               name="Shopping"
@@ -149,6 +112,9 @@ const Cart = () => {
               stripeKey={KEY}
             >
               <Button>CHECKOUT NOW</Button>
+              <SummeryItemText>
+                On purchases $60 or more, shipping is FREE!!!
+              </SummeryItemText>
             </StripeCheckout>
           </Summery>
         </Bottom>
