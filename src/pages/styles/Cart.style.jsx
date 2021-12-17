@@ -92,3 +92,8 @@ export const Button = styled.button`
   color: white;
   font-weight: 600;
 `;
+
+export const SummeryItemNot = styled.div` 
+font-size: 10px;
+color: blueviolet;
+`

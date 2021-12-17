@@ -15,6 +15,7 @@ import {
   TopText,
   TopTexts,
   Info,
+  SummeryItemNot
 } from "./styles/Cart.style";
 import React from "react";
 import CartProduct from "../components/CartProduct";
@@ -57,6 +58,9 @@ const Cart = () => {
     stripeToken && makeRequest();
   }, [stripeToken, cart.total, navigate]);
 
+
+  
+
   return (
     <Container>
       <Navbar />
@@ -85,10 +89,13 @@ const Cart = () => {
               <SummeryItemText>Subtotal</SummeryItemText>
               <SummeryItemPrice>$ {cart.total}</SummeryItemPrice>
             </SummeryItem>
-            <SummeryItem>
+            <SummeryItem style={{marginBottom:"0px"}}>
               <SummeryItemText>Estimated Shipping</SummeryItemText>
               <SummeryItemPrice>$ 5.90</SummeryItemPrice>
             </SummeryItem>
+            <SummeryItemNot>
+                On purchases $60 or more, shipping is FREE!!!
+              </SummeryItemNot>
             <SummeryItem>
               <SummeryItemText>Shipping Discount</SummeryItemText>
               <SummeryItemPrice>
@@ -98,7 +105,7 @@ const Cart = () => {
             <SummeryItem type="total">
               <SummeryItemText>Total</SummeryItemText>
               <SummeryItemPrice>
-                $ {cart.total >= 60 ? cart.total : cart.total + 5.9}
+                $ {cart.total >= 60 || cart.total === 0 ? cart.total : cart.total + 5.9}
               </SummeryItemPrice>
             </SummeryItem>
             <StripeCheckout
@@ -110,11 +117,9 @@ const Cart = () => {
               amount={cart.total * 100}
               token={onToken}
               stripeKey={KEY}
-            >
+              >
+              
               <Button>CHECKOUT NOW</Button>
-              <SummeryItemText>
-                On purchases $60 or more, shipping is FREE!!!
-              </SummeryItemText>
             </StripeCheckout>
           </Summery>
         </Bottom>

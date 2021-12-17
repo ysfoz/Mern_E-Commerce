@@ -22,10 +22,11 @@ const ProductList = () => {
   const [sort, setSort] = useState("newest");
 
   const handleFilters = (e) => {
-    setFilters({
-      ...filters,
-      [e.target.name]: e.target.value,
-    });
+      setFilters({
+        ...filters,
+        [e.target.name]: e.target.value,
+      });
+    
   };
 
   return (
@@ -38,7 +39,6 @@ const ProductList = () => {
           <FilterText>Filter Products:</FilterText>
           <Select name="color" onChange={handleFilters}>
             <Option disabled>Color</Option>
-            <Option>all</Option>
             <Option>white</Option>
             <Option>black</Option>
             <Option>red</Option>
@@ -48,12 +48,11 @@ const ProductList = () => {
           </Select>
           <Select name="size" onChange={handleFilters}>
             <Option disabled>Size</Option>
-            <Option>All</Option>
-            <Option>XS</Option>
-            <Option>S</Option>
-            <Option>M</Option>
-            <Option>L</Option>
-            <Option>XL</Option>
+            <Option>xs</Option>
+            <Option>s</Option>
+            <Option>m</Option>
+            <Option>l</Option>
+            <Option>xl</Option>
           </Select>
         </Filter>
         <Filter>

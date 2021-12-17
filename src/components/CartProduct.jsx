@@ -16,8 +16,18 @@ import {
   } from "./styles/CartProduct.style";
   import { Add, Remove } from "@material-ui/icons";
   import CartFooter from "./CartFooter"
+import {  removeAll} from "../redux/cartRedux"
+import { useDispatch } from "react-redux"
+ 
+
+ 
 
 const CartProduct = ({index,product}) => {
+console.log("🚀 ~ file: CartProduct.jsx ~ line 26 ~ CartProduct ~ product", product)
+  const dispatch = useDispatch()
+ 
+
+  
     return (
       <>
         <Product key={index}>
@@ -44,17 +54,20 @@ const CartProduct = ({index,product}) => {
                 </ProductDetail>
                 <PriceDetail>
                   <ProductAmountContainer>
-                    <Add />
-                    <ProductAmount>{product.quantity}</ProductAmount>
-
                     <Remove />
+                    
+                    <ProductAmount>{product.quantity}</ProductAmount>
+                    <Add />
+                   
+                    <Remove onClick={()=> dispatch(removeAll())}/>
+
                   </ProductAmountContainer>
                   <ProductPrice>
                     $ {product.price * product.quantity}
                   </ProductPrice>
                 </PriceDetail>
               </Product>
-              <CartFooter/>
+              <CartFooter product ={product}/>
               </>
     )
 }
