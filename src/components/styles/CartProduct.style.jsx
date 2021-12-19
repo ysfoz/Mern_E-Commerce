@@ -8,8 +8,9 @@ export const Product = styled.div`
   display: flex;
   justify-content: space-between;
   border-top: 1px solid lightgray;
-  margin-bottom: 3px;
+  /* margin-bottom: 3px; */
   margin-right: 25px;
+  background-color: white;
 
   
   ${mobile({ flexDirection: "column",marginRight:"3px" })}

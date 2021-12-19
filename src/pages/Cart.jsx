@@ -15,7 +15,9 @@ import {
   TopText,
   TopTexts,
   Info,
-  SummeryItemNot
+  SummeryItemNot,
+  MainTitle,
+  MainTitleContainer
 } from "./styles/Cart.style";
 import React from "react";
 import CartProduct from "../components/CartProduct";
@@ -70,19 +72,32 @@ const Cart = () => {
         <Top>
           <TopButton>CONTINUE SHOPPING</TopButton>
           <TopTexts>
-            <TopText>Shopping Bag(2)</TopText>
-            <TopText>Your Wishlist(0)</TopText>
+            {/* <TopText>Shopping Bag(2)</TopText>
+            <TopText>Your Wishlist(0)</TopText> */}
           </TopTexts>
           <TopButton type="filled">CHECKOUT NOW</TopButton>
         </Top>
         <Bottom>
+          <MainTitleContainer>
+          <MainTitle>Shopping Basket</MainTitle>
+
           <Info>
             {cart?.products?.map((product, index) => (
               <CartProduct product={product} index={index} />
-            ))}
+              ))}
 
-            <Hr />
+            
+           
           </Info>
+          <MainTitle>Your save for later items</MainTitle>
+          <Info>
+            {cart?.saveforlater?.map((product, index) => (
+              <CartProduct product={product} index={index} />
+              ))}
+
+            
+          </Info>
+              </MainTitleContainer>
           <Summery>
             <SummeryTitle>ORDER SUMMERY</SummeryTitle>
             <SummeryItem>

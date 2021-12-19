@@ -31,7 +31,29 @@ const cartSlice = createSlice({
         }
     
   }
-}
+},
+// aslinda calisiyor ama listenin products ta kac tane varsa hepsini saveforlater a atiyor
+addSaveForLater:(state,action)=>{
+  for(let i in state.products){
+    if(state.products[i]._id === action.payload){
+      state.total -= state.products[i].price * state.products[i].quantity
+      state.quantity -= 1
+      const product = state.products.splice(i,1)
+      state.saveforlater.push(...product)
+    }
+  }
+  // state.total -=  action.payload.price 
+  // state.quantity -= 1
+  // state.saveforlater.push(action.payload.product)
+  // state.products.splice(state.products.findIndex((item)=> item._id === action.payload.id)) 
+
+
+},
+addSaveForLater2:(state,action)=>{
+  
+state.saveforlater = []
+
+},
 
 
     //   state.total = state.total - action.payload.price * action.payload.quantity
@@ -54,5 +76,5 @@ const cartSlice = createSlice({
   },
 });
 
-export const { addProduct, removeAll, changeQuantity,deleteProduct } = cartSlice.actions;
+export const { addProduct, removeAll, changeQuantity,deleteProduct,addSaveForLater,addSaveForLater2 } = cartSlice.actions;
 export default cartSlice.reducer;

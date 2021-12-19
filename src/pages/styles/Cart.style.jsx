@@ -3,7 +3,9 @@ import {  mobile } from "../../responsive";
 
 
 
-export const Container = styled.div``;
+export const Container = styled.div`
+background-color:#eee;
+`;
 
 export const Wrapper = styled.div`
   padding: 20px;
@@ -60,6 +62,7 @@ export const Hr = styled.hr`
   background-color: #eee;
   border: none;
   height: 1px;
+  
 `;
 
 export const Summery = styled.div`
@@ -97,3 +100,17 @@ export const SummeryItemNot = styled.div`
 font-size: 10px;
 color: blueviolet;
 `
+
+export const MainTitle = styled.span` 
+font-size:30px;
+font-weight: 200;
+display:flex;
+justify-content: center;
+align-items: center;
+margin: 20px 20px 20px 0px;
+background-color: #efefef;
+padding: 10px;
+`
+export const MainTitleContainer = styled.div` 
+flex:3
+` 
