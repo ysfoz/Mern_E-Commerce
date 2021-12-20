@@ -1,16 +1,39 @@
-import React from 'react'
-import { ModalContainer,ModalHeader,Button } from './styles/CartModal.style'
 
-const CartModal = ({setModalFlag}) => {
-    return (
-        <ModalContainer>
-            <ModalHeader>
-modal
-            </ModalHeader>
-            <Button onClick={()=>setModalFlag(false)}>Close</Button>
-            
-        </ModalContainer>
-    )
-}
+import {
+  ModalContainer,
+  ModalHeader,
+  Button,
+  ModalHeaderWrapper,
+  Wrapper,
+  CardWrapper,
+} from "./styles/CartModal.style";
+import CartModalCard from "../components/CartModalCard";
 
-export default CartModal
+
+
+
+
+const CartModal = ({ setModalFlag,data }) => {
+    
+
+
+
+
+
+  return (
+    <ModalContainer>
+      <Wrapper>
+        <ModalHeaderWrapper>
+          <ModalHeader>More items like this</ModalHeader>
+          <Button onClick={()=> setModalFlag(false)} >x</Button>
+        </ModalHeaderWrapper>
+        <CardWrapper>
+            {data.map((item)=><CartModalCard key={item._id} item={item}/>)}
+          
+        </CardWrapper>
+      </Wrapper>
+    </ModalContainer>
+  );
+};
+
+export default CartModal;

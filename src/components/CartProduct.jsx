@@ -22,8 +22,8 @@ import { useDispatch } from "react-redux"
 
  
 
-const CartProduct = ({index,product,inWhichList,setModalFlag}) => {
-console.log("🚀 ~ file: CartProduct.jsx ~ line 26 ~ CartProduct ~ index", index)
+const CartProduct = ({index,product,inWhichList,seeLikeThisClicked}) => {
+
 
   const dispatch = useDispatch()
  
@@ -68,7 +68,7 @@ console.log("🚀 ~ file: CartProduct.jsx ~ line 26 ~ CartProduct ~ index", inde
                   </ProductPrice>
                 </PriceDetail>
               </Product>
-              <CartFooter product ={product} inWhichList={inWhichList}  setModalFlag={setModalFlag}/>
+              <CartFooter product ={product} inWhichList={inWhichList}  seeLikeThisClicked={()=>seeLikeThisClicked(product.title.slice(0,2))}/>
               </>
     )
 }

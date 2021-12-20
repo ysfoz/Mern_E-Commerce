@@ -30,6 +30,7 @@ import StripeCheckout from "react-stripe-checkout";
 import { useState, useEffect } from "react";
 import { userRequest } from "../helper/requestMethods";
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
 
 const KEY = process.env.REACT_APP_STRIPE;
 
@@ -38,6 +39,8 @@ const Cart = () => {
   const [stripeToken, setStripeToken] = useState(null);
   const [modalFlag,setModalFlag] = useState(false)
   const navigate = useNavigate();
+  const [data,setData] = useState([])
+  console.log("🚀 ~ file: CartModal.jsx ~ line 18 ~ CartModal ~ data", data)
 
   const onToken = (token) => {
     setStripeToken(token);
@@ -62,6 +65,26 @@ const Cart = () => {
   }, [stripeToken, cart.total, navigate]);
 
 
+ 
+
+const getData = async(twochar) => {
+    try {
+        const res = await axios.get('https://mern-e-commerce-api.herokuapp.com/api/products')
+        const newData = res?.data.filter((item)=> item.title.slice(0,2) === twochar)
+        console.log("🚀 ~ file: Cart.jsx ~ line 74 ~ getData ~ newData", newData)
+        setData(newData)
+        
+    } catch (error) {
+        console.log(error)
+    }
+}   
+
+const seeLikeThisClicked = (twochar) =>{
+  getData(twochar)
+  setTimeout(() => {
+      setModalFlag(true)
+  }, 1000);
+  }
 
 
   return (
@@ -88,7 +111,7 @@ const Cart = () => {
             
             {
             cart?.products?.map((product, index) => (
-              <CartProduct product={product} index={index} inWhichList="products"  setModalFlag={setModalFlag}/>
+              <CartProduct product={product} index={index} inWhichList="products"  seeLikeThisClicked={seeLikeThisClicked}/>
               ))
        
             }
@@ -100,7 +123,7 @@ const Cart = () => {
           <Info>
             {cart?.saveforlater?.map((product, index) => (
            
-              <CartProduct product={product} index={index} inWhichList="saveforlater"  setModalFlag={setModalFlag}/>
+              <CartProduct product={product} index={index} inWhichList="saveforlater"  seeLikeThisClicked={seeLikeThisClicked}/>
               ))}
 
             
@@ -148,7 +171,7 @@ const Cart = () => {
         </Bottom>
       </Wrapper>
       <Footer />
-      {modalFlag && <CartModal setModalFlag={setModalFlag}/>}
+      {modalFlag && <CartModal setModalFlag={setModalFlag} data={data}/>}
     </Container>
   );
 };

@@ -9,7 +9,7 @@ import {
 import { useDispatch } from "react-redux";
 
 
-const CartFooter = ({ product, inWhichList,setModalFlag }) => {
+const CartFooter = ({ product, inWhichList,seeLikeThisClicked }) => {
   const dispatch = useDispatch();
 
   const deleteItem = () => {
@@ -38,7 +38,7 @@ const CartFooter = ({ product, inWhichList,setModalFlag }) => {
         <Button onClick={addSaveForLaterList}>
           {inWhichList === "products" ? "Save for later" : "move to basket"}
         </Button>
-        <Button onClick={()=> setModalFlag(true)}>See more like this</Button>
+        <Button onClick={seeLikeThisClicked}>See more like this</Button>
       </ButtonContainer>
     </Container>
   );
