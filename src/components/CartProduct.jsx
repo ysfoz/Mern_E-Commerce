@@ -22,7 +22,8 @@ import { useDispatch } from "react-redux"
 
  
 
-const CartProduct = ({index,product,inWhichList}) => {
+const CartProduct = ({index,product,inWhichList,setModalFlag}) => {
+console.log("🚀 ~ file: CartProduct.jsx ~ line 26 ~ CartProduct ~ index", index)
 
   const dispatch = useDispatch()
  
@@ -32,22 +33,22 @@ const CartProduct = ({index,product,inWhichList}) => {
       <>
         <Product key={index}>
                 <ProductDetail>
-                  <Image src={product.img} />
+                  <Image src={product?.img} />
                   <Details>
                     <ProductName>
                       <b>Product:</b>
-                      {product.title}
+                      {product?.title}
                     </ProductName>
                     <ProductId>
                       <b>ID:</b>
-                      {product._id}
+                      {product?._id}
                     </ProductId>
                     <ColorSizeContainer>
 
                     
-                    <ProductColor color={product.color} />
+                    <ProductColor color={product?.color} />
                     <ProductSize>
-                      <b>Size:</b> {product.size.toUpperCase()}
+                      <b>Size:</b> {product?.size}
                     </ProductSize>
                     </ColorSizeContainer>
                   </Details>
@@ -56,18 +57,18 @@ const CartProduct = ({index,product,inWhichList}) => {
                   <ProductAmountContainer>
                     <Remove />
                     
-                    <ProductAmount>{product.quantity}</ProductAmount>
+                    <ProductAmount>{product?.quantity}</ProductAmount>
                     <Add />
                    
                     <Remove onClick={()=> dispatch(removeAll())}/>
 
                   </ProductAmountContainer>
                   <ProductPrice>
-                    $ {product.price * product.quantity}
+                    $ {product?.price * product?.quantity}
                   </ProductPrice>
                 </PriceDetail>
               </Product>
-              <CartFooter product ={product} inWhichList={inWhichList}/>
+              <CartFooter product ={product} inWhichList={inWhichList}  setModalFlag={setModalFlag}/>
               </>
     )
 }

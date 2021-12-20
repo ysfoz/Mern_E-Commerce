@@ -21,7 +21,7 @@ import {
 } from "./styles/Cart.style";
 import React from "react";
 import CartProduct from "../components/CartProduct";
-
+import CartModal from "../components/CartModal"
 import Announcement from "../components/Announcement";
 import Footer from "../components/Footer";
 import Navbar from "../components/Navbar";
@@ -36,6 +36,7 @@ const KEY = process.env.REACT_APP_STRIPE;
 const Cart = () => {
   const cart = useSelector((state) => state.cart);
   const [stripeToken, setStripeToken] = useState(null);
+  const [modalFlag,setModalFlag] = useState(false)
   const navigate = useNavigate();
 
   const onToken = (token) => {
@@ -70,10 +71,9 @@ const Cart = () => {
       <Wrapper>
         <Title>YOUR BAG</Title>
         <Top>
-          <TopButton>CONTINUE SHOPPING</TopButton>
+          <TopButton onClick={()=>navigate("/")}>CONTINUE SHOPPING</TopButton>
           <TopTexts>
-            {/* <TopText>Shopping Bag(2)</TopText>
-            <TopText>Your Wishlist(0)</TopText> */}
+           
           </TopTexts>
           <TopButton type="filled">CHECKOUT NOW</TopButton>
         </Top>
@@ -88,7 +88,7 @@ const Cart = () => {
             
             {
             cart?.products?.map((product, index) => (
-              <CartProduct product={product} index={index} inWhichList="products"/>
+              <CartProduct product={product} index={index} inWhichList="products"  setModalFlag={setModalFlag}/>
               ))
        
             }
@@ -99,7 +99,8 @@ const Cart = () => {
           <MainTitle>Your save for later items</MainTitle>
           <Info>
             {cart?.saveforlater?.map((product, index) => (
-              <CartProduct product={product} index={index} inWhichList="saveforlater"/>
+           
+              <CartProduct product={product} index={index} inWhichList="saveforlater"  setModalFlag={setModalFlag}/>
               ))}
 
             
@@ -147,6 +148,7 @@ const Cart = () => {
         </Bottom>
       </Wrapper>
       <Footer />
+      {modalFlag && <CartModal setModalFlag={setModalFlag}/>}
     </Container>
   );
 };

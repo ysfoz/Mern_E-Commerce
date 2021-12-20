@@ -19,13 +19,14 @@ import { useSelector, useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
 import { logoutSuccess } from "../redux/userRedux";
 import avatar from "../assets/avatar.jpeg";
+import { useState } from "react";
 
 const Navbar = (props) => {
   const { quantity } = useSelector((state) => state.cart);
   const user = useSelector((state) => state.user.currentUser);
   const dispatch = useDispatch();
-  // const [profileFlag,setProfileFlag] = useState(false)
-  // console.log("🚀 ~ file: Navbar.jsx ~ line 89 ~ Navbar ~ profileFlag", profileFlag)
+  const [profileFlag,setProfileFlag] = useState(false)
+  
 
   const logout = () => {
     dispatch(logoutSuccess());
@@ -83,10 +84,10 @@ const Navbar = (props) => {
               <MenuItem>
                 <Profile
                   src={user?.img || avatar}
-                  onClick={() => props.setProfileFlag((p) => !p)}
+                  onClick={() => setProfileFlag((p) => !p)}
                 />
               </MenuItem>
-              {props.profileFlag && (
+              {profileFlag && (
                 <PopupWrapper
                   style={{
                     position: "absolute",
@@ -98,9 +99,9 @@ const Navbar = (props) => {
                   }}
                 >
                   <Link to={`/profile/${user?._id}`}>
-                    <PopupItem>{`${user?.username} profile`}</PopupItem>
+                    <PopupItem style={{marginBottom: "3px"}}>{`${user?.username} profile`}</PopupItem>
                   </Link>
-                  <PopupItem></PopupItem>
+                  
                   <PopupItem onClick={logout}>Logout</PopupItem>
                 </PopupWrapper>
               )}

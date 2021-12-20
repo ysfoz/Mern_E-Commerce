@@ -47,6 +47,8 @@ const Product = () => {
     try {
       const res = await publicRequest.get("/products/find/" + id);
       setProduct(res?.data);
+      color === "" && setColor(res?.data?.color[0])
+      size === "" && setSize(res?.data?.size[0])
     } catch (error) {
       console.log(error);
     }
@@ -63,6 +65,7 @@ const Product = () => {
   };
 
   const handleClick = () => {
+  
     dispatch(addProduct({ ...product, quantity, color, size }));
   };
 

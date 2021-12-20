@@ -82,7 +82,12 @@ flex-direction: "column";
 top: '50px';
 z-index: 2;
 right: '20px';
+background-color: teal;
+border: 3px solid teal;
 `
 export const PopupItem =styled.button`
+border: none;
+background-color: white;
 
+padding: 6px 12px;
 `

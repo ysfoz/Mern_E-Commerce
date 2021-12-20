@@ -12,6 +12,7 @@ const cartSlice = createSlice({
     addProduct: (state, action) => {
       state.quantity += 1;
       state.products.push(action.payload);
+      console.log("🚀 ~ file: cartRedux.js ~ line 15 ~ action.payload", action.payload)
       state.total += action.payload.price * action.payload.quantity;
     },
     removeAll: (state) => {
@@ -37,8 +38,7 @@ const cartSlice = createSlice({
       for(let i in state.saveforlater){
       
         if (state.saveforlater[i]._id === action.payload){
-          // state.total -= state.saveforlater[i].price * state.saveforlater[i].quantity
-          // state.quantity -= 1
+
           state.saveforlater.splice(i,1)
           
         }
