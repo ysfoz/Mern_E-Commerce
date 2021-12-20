@@ -32,7 +32,20 @@ const cartSlice = createSlice({
     
   }
 },
-// aslinda calisiyor ama listenin products ta kac tane varsa hepsini saveforlater a atiyor
+    deleteSaveForLater: (state, action) => {
+
+      for(let i in state.saveforlater){
+      
+        if (state.saveforlater[i]._id === action.payload){
+          // state.total -= state.saveforlater[i].price * state.saveforlater[i].quantity
+          // state.quantity -= 1
+          state.saveforlater.splice(i,1)
+          
+        }
+    
+  }
+},
+
 addSaveForLater:(state,action)=>{
   for(let i in state.products){
     if(state.products[i]._id === action.payload){
@@ -42,12 +55,16 @@ addSaveForLater:(state,action)=>{
       state.saveforlater.push(...product)
     }
   }
-  // state.total -=  action.payload.price 
-  // state.quantity -= 1
-  // state.saveforlater.push(action.payload.product)
-  // state.products.splice(state.products.findIndex((item)=> item._id === action.payload.id)) 
-
-
+},
+addProductsFromSaveForLater:(state,action)=>{
+  for(let i in state.saveforlater){
+    if(state.saveforlater[i]._id === action.payload){
+      state.total += state.saveforlater[i].price * state.saveforlater[i].quantity
+      state.quantity += 1
+      const product = state.saveforlater.splice(i,1)
+      state.products.push(...product)
+    }
+  }
 },
 addSaveForLater2:(state,action)=>{
   
@@ -55,26 +72,8 @@ state.saveforlater = []
 
 },
 
-
-    //   state.total = state.total - action.payload.price * action.payload.quantity
-    //   state.products.splice(
-    //     state.products.findIndex(
-    //       (product) => product._id === action.payload.id
-    //     ),
-    //     1
-    //   );
-    //   state.quantity -= 1
-    // },
-
-    //!calistirmadim
-    // changeQuantity:(state,action)=>{
-    //   state.products[
-    //     state.products.findIndex((item) => item._id === action.payload.id)
-    // ] =
-
-    // }
   },
 });
 
-export const { addProduct, removeAll, changeQuantity,deleteProduct,addSaveForLater,addSaveForLater2 } = cartSlice.actions;
+export const { addProduct, removeAll, changeQuantity,deleteProduct,addSaveForLater,addSaveForLater2,deleteSaveForLater,addProductsFromSaveForLater } = cartSlice.actions;
 export default cartSlice.reducer;

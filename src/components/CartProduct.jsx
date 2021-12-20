@@ -22,8 +22,8 @@ import { useDispatch } from "react-redux"
 
  
 
-const CartProduct = ({index,product}) => {
-console.log("🚀 ~ file: CartProduct.jsx ~ line 26 ~ CartProduct ~ product", product)
+const CartProduct = ({index,product,inWhichList}) => {
+
   const dispatch = useDispatch()
  
 
@@ -67,7 +67,7 @@ console.log("🚀 ~ file: CartProduct.jsx ~ line 26 ~ CartProduct ~ product", pr
                   </ProductPrice>
                 </PriceDetail>
               </Product>
-              <CartFooter product ={product}/>
+              <CartFooter product ={product} inWhichList={inWhichList}/>
               </>
     )
 }

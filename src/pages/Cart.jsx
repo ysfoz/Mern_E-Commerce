@@ -61,7 +61,7 @@ const Cart = () => {
   }, [stripeToken, cart.total, navigate]);
 
 
-  
+
 
   return (
     <Container>
@@ -82,9 +82,16 @@ const Cart = () => {
           <MainTitle>Shopping Basket</MainTitle>
 
           <Info>
-            {cart?.products?.map((product, index) => (
-              <CartProduct product={product} index={index} />
-              ))}
+
+            {/**suan calismiyor */}
+            {/* {!cart?.products && <MainTitle style={{color:'blueviolet'}}>!!Your Shopping Basket is empty!!</MainTitle>} */}
+            
+            {
+            cart?.products?.map((product, index) => (
+              <CartProduct product={product} index={index} inWhichList="products"/>
+              ))
+       
+            }
 
             
            
@@ -92,7 +99,7 @@ const Cart = () => {
           <MainTitle>Your save for later items</MainTitle>
           <Info>
             {cart?.saveforlater?.map((product, index) => (
-              <CartProduct product={product} index={index} />
+              <CartProduct product={product} index={index} inWhichList="saveforlater"/>
               ))}
 
             
