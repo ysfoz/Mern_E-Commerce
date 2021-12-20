@@ -1,4 +1,4 @@
-import React from 'react'
+
 import {
     ProductAmount,
     ProductAmountContainer,
@@ -26,7 +26,7 @@ const CartProduct = ({index,product,inWhichList,seeLikeThisClicked}) => {
 
 
   const dispatch = useDispatch()
- 
+
 
   
     return (

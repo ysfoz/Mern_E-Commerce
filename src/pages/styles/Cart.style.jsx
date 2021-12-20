@@ -105,12 +105,30 @@ export const MainTitle = styled.span`
 font-size:30px;
 font-weight: 200;
 display:flex;
-justify-content: center;
+justify-content: flex-start;
 align-items: center;
 margin: 20px 20px 20px 0px;
 background-color: #efefef;
 padding: 10px;
-`
+`;
 export const MainTitleContainer = styled.div` 
-flex:3
+flex:3;
 ` 
+export const Toasty = styled.div` 
+background-color: lightgreen;
+/* width: fit-content; */
+padding: 20px;
+color: aliceblue;
+font-size: 20px;
+font-weight: 600;
+text-align: center;
+position: relative;
+  animation: mymove 5s infinite;
+  animation-timing-function: ease;
+ @keyframes mymove {
+  from {bottom: 90%;}
+  to {top: 0px;}
+  
+}
+`
+

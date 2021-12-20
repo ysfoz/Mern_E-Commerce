@@ -42,3 +42,12 @@ export const FilterContainer = styled.div`
   display: flex;
   justify-content: flex-start;
 `;
+
+export const Button = styled.button` 
+background-color: teal;
+color:white;
+border:none;
+border-radius: 5px;
+padding: 5px 10px;
+cursor:pointer;
+`

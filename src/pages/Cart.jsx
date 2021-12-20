@@ -12,25 +12,27 @@ import {
   Wrapper,
   Title,
   Top,
-  TopText,
+
   TopTexts,
   Info,
   SummeryItemNot,
   MainTitle,
-  MainTitleContainer
+  MainTitleContainer,
+  Toasty
 } from "./styles/Cart.style";
-import React from "react";
+
 import CartProduct from "../components/CartProduct";
 import CartModal from "../components/CartModal"
 import Announcement from "../components/Announcement";
 import Footer from "../components/Footer";
 import Navbar from "../components/Navbar";
-import { useSelector } from "react-redux";
+import { useSelector,useDispatch } from "react-redux";
 import StripeCheckout from "react-stripe-checkout";
 import { useState, useEffect } from "react";
 import { userRequest } from "../helper/requestMethods";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import { addProductsToOrders } from "../redux/cartRedux"
 
 const KEY = process.env.REACT_APP_STRIPE;
 
@@ -38,6 +40,9 @@ const Cart = () => {
   const cart = useSelector((state) => state.cart);
   const [stripeToken, setStripeToken] = useState(null);
   const [modalFlag,setModalFlag] = useState(false)
+  const [toasty,setToasty] = useState(false)
+  const dispatch = useDispatch()
+  
   const navigate = useNavigate();
   const [data,setData] = useState([])
   console.log("🚀 ~ file: CartModal.jsx ~ line 18 ~ CartModal ~ data", data)
@@ -50,13 +55,15 @@ const Cart = () => {
     try {
       const res = await userRequest?.post("/checkout/payment", {
         tokenId: stripeToken?.id,
-        amount: 500,
+        amount: cart?.total,
       });
       console.log(res);
-      navigate("/success", {
-        stripeData: res.data,
-        products: cart,
-      });
+      setToasty(true)
+      dispatch(addProductsToOrders())
+      // navigate("/success", {
+      //   stripeData: res.data,
+      //   products: cart,
+      // });
     } catch {}
   };
 
@@ -65,13 +72,16 @@ const Cart = () => {
   }, [stripeToken, cart.total, navigate]);
 
 
- 
+ useEffect(()=>{
+   setTimeout(() => {
+     setToasty(false)
+   }, 5000);
+ },[toasty])
 
 const getData = async(twochar) => {
     try {
         const res = await axios.get('https://mern-e-commerce-api.herokuapp.com/api/products')
         const newData = res?.data.filter((item)=> item.title.slice(0,2) === twochar)
-        console.log("🚀 ~ file: Cart.jsx ~ line 74 ~ getData ~ newData", newData)
         setData(newData)
         
     } catch (error) {
@@ -92,13 +102,14 @@ const seeLikeThisClicked = (twochar) =>{
       <Navbar />
       <Announcement />
       <Wrapper>
+        {toasty && <Toasty>You payed ${cart.total} for {cart.quantity} items succesfully`</Toasty>}
         <Title>YOUR BAG</Title>
         <Top>
           <TopButton onClick={()=>navigate("/")}>CONTINUE SHOPPING</TopButton>
           <TopTexts>
            
           </TopTexts>
-          <TopButton type="filled">CHECKOUT NOW</TopButton>
+          <TopButton type="filled" onClick={()=> setToasty(true)}>Orders</TopButton>
         </Top>
         <Bottom>
           <MainTitleContainer>
@@ -111,7 +122,7 @@ const seeLikeThisClicked = (twochar) =>{
             
             {
             cart?.products?.map((product, index) => (
-              <CartProduct product={product} index={index} inWhichList="products"  seeLikeThisClicked={seeLikeThisClicked}/>
+              <CartProduct product={product} index={index} inWhichList="products"  seeLikeThisClicked={seeLikeThisClicked} />
               ))
        
             }
@@ -123,7 +134,7 @@ const seeLikeThisClicked = (twochar) =>{
           <Info>
             {cart?.saveforlater?.map((product, index) => (
            
-              <CartProduct product={product} index={index} inWhichList="saveforlater"  seeLikeThisClicked={seeLikeThisClicked}/>
+              <CartProduct product={product} index={index} inWhichList="saveforlater"  seeLikeThisClicked={seeLikeThisClicked}  />
               ))}
 
             
@@ -171,7 +182,7 @@ const seeLikeThisClicked = (twochar) =>{
         </Bottom>
       </Wrapper>
       <Footer />
-      {modalFlag && <CartModal setModalFlag={setModalFlag} data={data}/>}
+      {modalFlag && <CartModal setModalFlag={setModalFlag} data={data} />}
     </Container>
   );
 };
