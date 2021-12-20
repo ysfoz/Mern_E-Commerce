@@ -1,39 +1,30 @@
 import {
   Container,
-  Title,
-  FilterContainer,
-  Filter,
-  Select,
-  Option,
-  FilterText,
+  OrdersContainer
+  
 } from "./styles/ProductList.style";
-import React, { useState } from "react";
 import Navbar from "../components/Navbar";
 import Announcement from "../components/Announcement";
-import Products from "../components/Products";
 import Newsletter from "../components/Newsletter";
 import Footer from "../components/Footer";
-import { useLocation } from "react-router";
+import OrderProducts from "../components/OrderProducts"
+import { useSelector } from "react-redux";
+
 
 const ProductList = () => {
-  const location = useLocation();
-  const cat = location.pathname.split("/")[2];
-  const [filters, setFilters] = useState({});
-  const [sort, setSort] = useState("newest");
+const orders = useSelector(state=> state.cart.orders)
+ 
 
-  const handleFilters = (e) => {
-      setFilters({
-        ...filters,
-        [e.target.name]: e.target.value,
-      });
-    
-  };
+  
 
   return (
     <Container>
       <Navbar />
       <Announcement />
-      <Products cat={cat} filters={filters} sort={sort} />
+      <OrdersContainer>
+      {orders.map((product,i)=> <OrderProducts product={product} key={i}/> )}
+
+      </OrdersContainer>
       <Newsletter />
       <Footer />
     </Container>

@@ -30,3 +30,6 @@ export const Select = styled.select`
 export const Option = styled.option`
     
 ` 
+export const OrdersContainer =styled.div` 
+display: flex;
+`

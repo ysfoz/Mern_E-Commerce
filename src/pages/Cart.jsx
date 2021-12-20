@@ -30,7 +30,7 @@ import { useSelector,useDispatch } from "react-redux";
 import StripeCheckout from "react-stripe-checkout";
 import { useState, useEffect } from "react";
 import { userRequest } from "../helper/requestMethods";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { addProductsToOrders } from "../redux/cartRedux"
 
@@ -109,7 +109,9 @@ const seeLikeThisClicked = (twochar) =>{
           <TopTexts>
            
           </TopTexts>
-          <TopButton type="filled" onClick={()=> setToasty(true)}>Orders</TopButton>
+          <Link to={"/orders"}>
+          <TopButton type="filled">Orders</TopButton>
+          </Link>
         </Top>
         <Bottom>
           <MainTitleContainer>

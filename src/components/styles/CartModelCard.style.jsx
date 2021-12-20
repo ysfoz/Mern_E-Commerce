@@ -6,6 +6,8 @@ export const Container = styled.div`
   margin-left: 15px;
   flex-direction: column;
   margin-bottom: 20px;
+
+  align-items: center;
 `;
 export const Image = styled.img`
   flex: 1.3;
@@ -50,4 +52,5 @@ border:none;
 border-radius: 5px;
 padding: 5px 10px;
 cursor:pointer;
+
 `
