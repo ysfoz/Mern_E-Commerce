@@ -32,12 +32,13 @@ import { useState, useEffect } from "react";
 import { userRequest } from "../helper/requestMethods";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
-import { addProductsToOrders } from "../redux/cartRedux"
+import { addProductsToOrders, addSaveForLater } from "../redux/cartRedux"
 
 const KEY = process.env.REACT_APP_STRIPE;
 
 const Cart = () => {
   const cart = useSelector((state) => state.cart);
+  console.log("🚀 ~ file: Cart.jsx ~ line 41 ~ Cart ~ cart", cart.saveforlater)
   const [stripeToken, setStripeToken] = useState(null);
   const [modalFlag,setModalFlag] = useState(false)
   const [toasty,setToasty] = useState(false)
@@ -119,10 +120,10 @@ const seeLikeThisClicked = (twochar) =>{
 
           <Info>
 
-            {/**suan calismiyor */}
-            {/* {!cart?.products && <MainTitle style={{color:'blueviolet'}}>!!Your Shopping Basket is empty!!</MainTitle>} */}
             
-            {
+            {cart?.quantity === 0 ? <div style={{color:"blueviolet"}}>Your Shopping Basket is empty</div> :
+            
+            
             cart?.products?.map((product, index) => (
               <CartProduct product={product} index={index} inWhichList="products"  seeLikeThisClicked={seeLikeThisClicked} />
               ))
@@ -132,7 +133,8 @@ const seeLikeThisClicked = (twochar) =>{
             
            
           </Info>
-          <MainTitle>Your save for later items</MainTitle>
+          { cart?.saveforlater.length > 0 &&
+          <MainTitle>Your save for later items</MainTitle>}
           <Info>
             {cart?.saveforlater?.map((product, index) => (
            
