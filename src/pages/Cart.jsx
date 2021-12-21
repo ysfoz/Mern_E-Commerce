@@ -3,7 +3,6 @@ import {
   Button,
   Bottom,
   TopButton,
-  Hr,
   Summery,
   SummeryItem,
   SummeryItemPrice,
@@ -12,41 +11,38 @@ import {
   Wrapper,
   Title,
   Top,
-
   TopTexts,
   Info,
   SummeryItemNot,
   MainTitle,
   MainTitleContainer,
-  Toasty
+  Toasty,
 } from "./styles/Cart.style";
 
 import CartProduct from "../components/CartProduct";
-import CartModal from "../components/CartModal"
+import CartModal from "../components/CartModal";
 import Announcement from "../components/Announcement";
 import Footer from "../components/Footer";
 import Navbar from "../components/Navbar";
-import { useSelector,useDispatch } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import StripeCheckout from "react-stripe-checkout";
 import { useState, useEffect } from "react";
 import { userRequest } from "../helper/requestMethods";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
-import { addProductsToOrders, addSaveForLater } from "../redux/cartRedux"
+import { addProductsToOrders } from "../redux/cartRedux";
 
 const KEY = process.env.REACT_APP_STRIPE;
 
 const Cart = () => {
   const cart = useSelector((state) => state.cart);
-  console.log("🚀 ~ file: Cart.jsx ~ line 41 ~ Cart ~ cart", cart.saveforlater)
   const [stripeToken, setStripeToken] = useState(null);
-  const [modalFlag,setModalFlag] = useState(false)
-  const [toasty,setToasty] = useState(false)
-  const dispatch = useDispatch()
-  
+  const [modalFlag, setModalFlag] = useState(false);
+  const [toasty, setToasty] = useState(false);
+  const dispatch = useDispatch();
+
   const navigate = useNavigate();
-  const [data,setData] = useState([])
-  console.log("🚀 ~ file: CartModal.jsx ~ line 18 ~ CartModal ~ data", data)
+  const [data, setData] = useState([]);
 
   const onToken = (token) => {
     setStripeToken(token);
@@ -59,8 +55,8 @@ const Cart = () => {
         amount: cart?.total,
       });
       console.log(res);
-      setToasty(true)
-      dispatch(addProductsToOrders())
+      setToasty(true);
+      dispatch(addProductsToOrders());
       // navigate("/success", {
       //   stripeData: res.data,
       //   products: cart,
@@ -72,91 +68,98 @@ const Cart = () => {
     stripeToken && makeRequest();
   }, [stripeToken, cart.total, navigate]);
 
+  useEffect(() => {
+    setTimeout(() => {
+      setToasty(false);
+    }, 5000);
+  }, [toasty]);
 
- useEffect(()=>{
-   setTimeout(() => {
-     setToasty(false)
-   }, 5000);
- },[toasty])
-
-const getData = async(twochar) => {
+  const getData = async (twochar) => {
     try {
-        const res = await axios.get('https://mern-e-commerce-api.herokuapp.com/api/products')
-        const newData = res?.data.filter((item)=> item.title.slice(0,2) === twochar)
-        setData(newData)
-        
+      const res = await axios.get(
+        "https://mern-e-commerce-api.herokuapp.com/api/products"
+      );
+      const newData = res?.data.filter(
+        (item) => item.title.slice(0, 2) === twochar
+      );
+      setData(newData);
     } catch (error) {
-        console.log(error)
+      console.log(error);
     }
-}   
+  };
 
-const seeLikeThisClicked = (twochar) =>{
-  getData(twochar)
-  setTimeout(() => {
-      setModalFlag(true)
-  }, 1000);
-  }
-
+  const seeLikeThisClicked = (twochar) => {
+    getData(twochar);
+    setTimeout(() => {
+      setModalFlag(true);
+    }, 1000);
+  };
 
   return (
     <Container>
       <Navbar />
       <Announcement />
       <Wrapper>
-        {toasty && <Toasty>You payed ${cart.total} for {cart.quantity} items succesfully`</Toasty>}
+        {toasty && (
+          <Toasty>
+            You payed ${cart.total} for {cart.quantity} items succesfully`
+          </Toasty>
+        )}
         <Title>YOUR BAG</Title>
         <Top>
-          <TopButton onClick={()=>navigate("/")}>CONTINUE SHOPPING</TopButton>
-          <TopTexts>
-           
-          </TopTexts>
+          <TopButton onClick={() => navigate("/")}>CONTINUE SHOPPING</TopButton>
+          <TopTexts></TopTexts>
           <Link to={"/orders"}>
-          <TopButton type="filled">Orders</TopButton>
+            <TopButton type="filled">Orders</TopButton>
           </Link>
         </Top>
         <Bottom>
           <MainTitleContainer>
-          <MainTitle>Shopping Basket</MainTitle>
+            <MainTitle>Shopping Basket</MainTitle>
 
-          <Info>
-
-            
-            {cart?.quantity === 0 ? <div style={{color:"blueviolet"}}>Your Shopping Basket is empty</div> :
-            
-            
-            cart?.products?.map((product, index) => (
-              <CartProduct product={product} index={index} inWhichList="products"  seeLikeThisClicked={seeLikeThisClicked} />
-              ))
-       
-            }
-
-            
-           
-          </Info>
-          { cart?.saveforlater.length > 0 &&
-          <MainTitle>Your save for later items</MainTitle>}
-          <Info>
-            {cart?.saveforlater?.map((product, index) => (
-           
-              <CartProduct product={product} index={index} inWhichList="saveforlater"  seeLikeThisClicked={seeLikeThisClicked}  />
+            <Info>
+              {cart?.quantity === 0 ? (
+                <div style={{ color: "blueviolet" }}>
+                  Your Shopping Basket is empty
+                </div>
+              ) : (
+                cart?.products?.map((product, index) => (
+                  <CartProduct
+                    product={product}
+                    index={index}
+                    inWhichList="products"
+                    seeLikeThisClicked={seeLikeThisClicked}
+                  />
+                ))
+              )}
+            </Info>
+            {cart?.saveforlater.length > 0 && (
+              <MainTitle>Your save for later items</MainTitle>
+            )}
+            <Info>
+              {cart?.saveforlater?.map((product, index) => (
+                <CartProduct
+                  product={product}
+                  index={index}
+                  inWhichList="saveforlater"
+                  seeLikeThisClicked={seeLikeThisClicked}
+                />
               ))}
-
-            
-          </Info>
-              </MainTitleContainer>
+            </Info>
+          </MainTitleContainer>
           <Summery>
             <SummeryTitle>ORDER SUMMERY</SummeryTitle>
             <SummeryItem>
               <SummeryItemText>Subtotal</SummeryItemText>
               <SummeryItemPrice>$ {cart.total}</SummeryItemPrice>
             </SummeryItem>
-            <SummeryItem style={{marginBottom:"0px"}}>
+            <SummeryItem style={{ marginBottom: "0px" }}>
               <SummeryItemText>Estimated Shipping</SummeryItemText>
               <SummeryItemPrice>$ 5.90</SummeryItemPrice>
             </SummeryItem>
             <SummeryItemNot>
-                On purchases $60 or more, shipping is FREE!!!
-              </SummeryItemNot>
+              On purchases $60 or more, shipping is FREE!!!
+            </SummeryItemNot>
             <SummeryItem>
               <SummeryItemText>Shipping Discount</SummeryItemText>
               <SummeryItemPrice>
@@ -166,7 +169,10 @@ const seeLikeThisClicked = (twochar) =>{
             <SummeryItem type="total">
               <SummeryItemText>Total</SummeryItemText>
               <SummeryItemPrice>
-                $ {cart.total >= 60 || cart.total === 0 ? cart.total : cart.total + 5.9}
+                ${" "}
+                {cart.total >= 60 || cart.total === 0
+                  ? cart.total
+                  : cart.total + 5.9}
               </SummeryItemPrice>
             </SummeryItem>
             <StripeCheckout
@@ -178,8 +184,7 @@ const seeLikeThisClicked = (twochar) =>{
               amount={cart.total * 100}
               token={onToken}
               stripeKey={KEY}
-              >
-              
+            >
               <Button>CHECKOUT NOW</Button>
             </StripeCheckout>
           </Summery>

@@ -2,11 +2,12 @@ import { Container } from "./styles/Products.style";
 import React, { useState, useEffect } from "react";
 import Product from "./Product";
 import axios from "axios";
+import { useSelector } from "react-redux";
 
-const Products = ({ cat, filters, sort }) => {
+const Products = ({ cat, filters, sort,homePage }) => {
   const [products, setProducts] = useState([]);
-
   const [filteredProducts, setFilteredProducts] = useState([]);
+  const searchedText = useSelector((state) => state.product.searchText);
 
   // get all products with category
   const getAllData = async () => {
@@ -20,6 +21,17 @@ const Products = ({ cat, filters, sort }) => {
     } catch (error) {
       console.log(error);
     }
+  };
+
+  // filtered products by seach input
+
+  const searchText = (value) => {
+    const filteredList = products.filter((item) => {
+      const userText = searchedText.toUpperCase();
+      const productTitel = item.title.toUpperCase();
+      return productTitel.indexOf(userText) > -1;
+    });
+    setFilteredProducts(filteredList);
   };
 
   // filtered products by color and size
@@ -49,6 +61,9 @@ const Products = ({ cat, filters, sort }) => {
       );
     }
   };
+  useEffect(() => {
+    searchText();
+  }, [searchedText]);
 
   useEffect(() => {
     getAllData();
@@ -64,7 +79,7 @@ const Products = ({ cat, filters, sort }) => {
 
   return (
     <Container>
-      {cat
+      {cat || homePage
         ? filteredProducts.map((item) => <Product item={item} key={item._id} />)
         : products
             .slice(0, 8)

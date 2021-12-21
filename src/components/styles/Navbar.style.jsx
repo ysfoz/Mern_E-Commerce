@@ -17,8 +17,6 @@ export const Left = styled.div`
   flex: 1;
   display: flex;
   align-items: center;
-  
-  
 `;
 
 export const Language = styled.span`
@@ -37,6 +35,11 @@ export const SearchContainer = styled.div`
 `;
 export const Input = styled.input`
   border: none;
+  padding: 2px 7px;
+  :focus{
+    outline: none;
+  }
+
   ${mobile({ width: "50px" })}
 `;
 

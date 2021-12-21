@@ -2,7 +2,6 @@ import {
   Container,
   Wrapper,
   Left,
-  Language,
   SearchContainer,
   Input,
   Center,
@@ -18,6 +17,7 @@ import { Badge } from "@material-ui/core";
 import { Search, ShoppingCartOutlined } from "@material-ui/icons";
 import { useSelector, useDispatch } from "react-redux";
 import { logoutSuccess } from "../redux/userRedux";
+import { setUserSearchInput } from "../redux/productRedux";
 import avatar from "../assets/avatar.jpeg";
 import { useState } from "react";
 import { useLocation, Link } from "react-router-dom";
@@ -33,6 +33,9 @@ const Navbar = (props) => {
   const logout = () => {
     dispatch(logoutSuccess());
   };
+  const setUserInput = (value) => {
+    dispatch(setUserSearchInput(value));
+  };
 
   return (
     <Container>
@@ -43,7 +46,19 @@ const Navbar = (props) => {
           </Link>
           {location?.pathname === "/" && (
             <SearchContainer>
-              <Input placeholder="Search" />
+              <Input
+                placeholder="Search"
+                onChange={(e) => setUserInput(e.target.value)}
+              />
+              <Search style={{ color: "teal", fontSize: 16 }} />
+            </SearchContainer>
+          )}
+          {location?.pathname.includes("products") && (
+            <SearchContainer>
+              <Input
+                placeholder="Search"
+                onChange={(e) => setUserInput(e.target.value)}
+              />
               <Search style={{ color: "teal", fontSize: 16 }} />
             </SearchContainer>
           )}
@@ -59,7 +74,7 @@ const Navbar = (props) => {
               alignItems: "center",
             }}
           >
-            <Logo>BestShop</Logo>
+            <Logo>Shoppingoo</Logo>
           </Link>
         </Center>
         <Right>
@@ -83,7 +98,7 @@ const Navbar = (props) => {
               <Link to={"/cart"}>
                 <MenuItem>
                   <Badge badgeContent={quantity} color="secondary">
-                    <ShoppingCartOutlined style={{color:"teal"}}/>
+                    <ShoppingCartOutlined style={{ color: "teal" }} />
                   </Badge>
                 </MenuItem>
               </Link>

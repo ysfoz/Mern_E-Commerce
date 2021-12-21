@@ -22,11 +22,10 @@ const ProductList = () => {
   const [sort, setSort] = useState("newest");
 
   const handleFilters = (e) => {
-      setFilters({
-        ...filters,
-        [e.target.name]: e.target.value,
-      });
-    
+    setFilters({
+      ...filters,
+      [e.target.name]: e.target.value,
+    });
   };
 
   return (
