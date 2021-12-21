@@ -3,6 +3,7 @@ import { mobile } from '../../responsive';
 
 export const Container = styled.div`
   height: 60px;
+ background-color: floralwhite;
   ${mobile({ height: "50px" })}
 `;
 export const Wrapper = styled.div`
@@ -16,6 +17,8 @@ export const Left = styled.div`
   flex: 1;
   display: flex;
   align-items: center;
+  
+  
 `;
 
 export const Language = styled.span`
@@ -25,10 +28,11 @@ export const Language = styled.span`
 `;
 
 export const SearchContainer = styled.div`
-  border: 0.5px solid lightgray;
+  border: 0.5px solid teal;
   display: flex;
   align-items: center;
-  margin-left: 25px;
+
+ 
   ${mobile({ marginLeft:"10px" })}
 `;
 export const Input = styled.input`
@@ -43,7 +47,9 @@ export const Center = styled.div`
 `;
 
 export const Logo = styled.h1`
+font-family:  'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
   font-weight: bold;
+  color: teal;
   ${mobile({ fontSize: "16px" })}
 `;
 
@@ -88,6 +94,12 @@ border: 3px solid teal;
 export const PopupItem =styled.button`
 border: none;
 background-color: white;
-
 padding: 6px 12px;
+`
+
+export const LinkLogo = styled.img` 
+width: 20%;
+margin-left: 10px;
+margin-bottom: 10px;
+${mobile({ width:"60%" })}
 `

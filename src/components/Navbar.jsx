@@ -12,21 +12,23 @@ import {
   Profile,
   PopupWrapper,
   PopupItem,
+  LinkLogo,
 } from "./styles/Navbar.style";
 import { Badge } from "@material-ui/core";
 import { Search, ShoppingCartOutlined } from "@material-ui/icons";
 import { useSelector, useDispatch } from "react-redux";
-import { Link } from "react-router-dom";
 import { logoutSuccess } from "../redux/userRedux";
 import avatar from "../assets/avatar.jpeg";
 import { useState } from "react";
+import { useLocation, Link } from "react-router-dom";
+import logo from "../assets/logo1.png";
 
 const Navbar = (props) => {
   const { quantity } = useSelector((state) => state.cart);
   const user = useSelector((state) => state.user.currentUser);
   const dispatch = useDispatch();
-  const [profileFlag,setProfileFlag] = useState(false)
-  
+  const [profileFlag, setProfileFlag] = useState(false);
+  const location = useLocation();
 
   const logout = () => {
     dispatch(logoutSuccess());
@@ -36,11 +38,15 @@ const Navbar = (props) => {
     <Container>
       <Wrapper>
         <Left>
-          <Language>EN</Language>
-          <SearchContainer>
-            <Input placeholder="Search" />
-            <Search style={{ color: "gray", fontSize: 16 }} />
-          </SearchContainer>
+          <Link to={"/"}>
+            <LinkLogo src={logo} />
+          </Link>
+          {location?.pathname === "/" && (
+            <SearchContainer>
+              <Input placeholder="Search" />
+              <Search style={{ color: "teal", fontSize: 16 }} />
+            </SearchContainer>
+          )}
         </Left>
         <Center>
           <Link
@@ -53,7 +59,7 @@ const Navbar = (props) => {
               alignItems: "center",
             }}
           >
-            <Logo>Shop</Logo>
+            <Logo>BestShop</Logo>
           </Link>
         </Center>
         <Right>
@@ -76,8 +82,8 @@ const Navbar = (props) => {
             <>
               <Link to={"/cart"}>
                 <MenuItem>
-                  <Badge badgeContent={quantity} color="primary">
-                    <ShoppingCartOutlined />
+                  <Badge badgeContent={quantity} color="secondary">
+                    <ShoppingCartOutlined style={{color:"teal"}}/>
                   </Badge>
                 </MenuItem>
               </Link>
@@ -99,9 +105,11 @@ const Navbar = (props) => {
                   }}
                 >
                   <Link to={`/profile/${user?._id}`}>
-                    <PopupItem style={{marginBottom: "3px"}}>{`${user?.username} profile`}</PopupItem>
+                    <PopupItem
+                      style={{ marginBottom: "3px" }}
+                    >{`${user?.username} profile`}</PopupItem>
                   </Link>
-                  
+
                   <PopupItem onClick={logout}>Logout</PopupItem>
                 </PopupWrapper>
               )}

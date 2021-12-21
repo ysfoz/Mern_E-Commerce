@@ -40,7 +40,7 @@ const OrderProducts = ({ index, product }) => {
             <b>Total Price:</b> $ {product?.price * product?.quantity}
             </ProductName>
             <Link to={`/product/${product._id}`}>
-            <Button>Purchase again</Button>
+            <Button>Buy it again</Button>
             </Link>
           </Details>
         </ProductDetail>
