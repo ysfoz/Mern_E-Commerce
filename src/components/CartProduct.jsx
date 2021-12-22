@@ -16,9 +16,30 @@ import {
 import { Add, Remove } from "@material-ui/icons";
 import CartFooter from "./CartFooter";
 import { useDispatch } from "react-redux";
+import { setProductQuantity,removeall } from "../redux/cartRedux"
+import { useEffect, useState } from "react";
 
 const CartProduct = ({ index, product, inWhichList, seeLikeThisClicked }) => {
   const dispatch = useDispatch();
+  const [quantity, setQuantity] = useState(product?.quantity);
+
+
+  const handleQuantity = (type) => {
+    if (type === "dec") {
+      quantity > 1 && setQuantity((prev) => prev - 1);
+      
+    } else {
+      setQuantity((prev) => prev + 1);
+      
+    }
+  };
+
+  useEffect(()=>{
+    // const id = product._id
+    // console.log("🚀 ~ file: CartProduct.jsx ~ line 39 ~ useEffect ~ id", id)
+    dispatch(setProductQuantity({id:product._id,quantity:quantity}))
+    
+  },[quantity])
 
   return (
     <>
@@ -44,12 +65,13 @@ const CartProduct = ({ index, product, inWhichList, seeLikeThisClicked }) => {
         </ProductDetail>
         <PriceDetail>
           <ProductAmountContainer>
-            <Remove />
+            <Remove onClick={() => handleQuantity("dec")}/>
 
-            <ProductAmount>{product?.quantity}</ProductAmount>
-            <Add />
+            <ProductAmount>{quantity}</ProductAmount>
+            <Add onClick={() => handleQuantity("inc")}/>
           </ProductAmountContainer>
           <ProductPrice>$ {product?.price * product?.quantity}</ProductPrice>
+            <Remove onClick={() => dispatch(removeall())}/>
         </PriceDetail>
       </Product>
       <CartFooter
