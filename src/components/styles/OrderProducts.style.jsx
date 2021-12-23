@@ -7,10 +7,13 @@ import {  mobile } from "../../responsive";
 export const Product = styled.div`
   display: flex;
   /* justify-content: space-between; */
-  border-top: 1px solid lightgray;
+  /* border-top: 1px solid lightgray; */
+  border-bottom: 1px solid lightgray;
+
   /* margin-bottom: 3px; */
-  margin-right: 25px;
+  margin: 20px 10px;
   background-color: white;
+  padding: 20px 5px;
   
 
   
@@ -23,7 +26,8 @@ export const ProductDetail = styled.div`
 `;
 
 export const Image = styled.img`
-  max-width: 200px;
+  max-width: 150px;
+  max-height: 170px;
   
   ${mobile({ alignSelf:"center"})}
   

@@ -10,7 +10,7 @@ import Profile from "./pages/Profile";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { useSelector } from "react-redux";
 
-const App = () => {
+const App = (props) => {
   const user = useSelector((state) => state.user.currentUser);
   return (
     <Router>

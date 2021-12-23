@@ -13,10 +13,6 @@ const cartSlice = createSlice({
     addProduct: (state, action) => {
       state.quantity += 1;
       state.products.push(action.payload);
-      console.log(
-        "🚀 ~ file: cartRedux.js ~ line 15 ~ action.payload",
-        action.payload
-      );
       state.total += action.payload.price * action.payload.quantity;
     },
 
@@ -59,7 +55,7 @@ const cartSlice = createSlice({
       }
     },
     addProductsToOrders: (state, action) => {
-      state.orders = [...state.products];
+      state.orders = [...state.products,...state.orders];
       state.products = [];
       state.quantity = 0;
       state.total = 0;

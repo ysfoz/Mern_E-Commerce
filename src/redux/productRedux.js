@@ -10,8 +10,11 @@ const productSlice = createSlice({
     setUserSearchInput: (state, action) => {
       state.searchText = action.payload;
     },
+    resetUserSearchInput:(state)=>{
+      state.searchText= ''
+    }
   },
 });
 
-export const { setUserSearchInput } = productSlice.actions;
+export const { setUserSearchInput,resetUserSearchInput } = productSlice.actions;
 export default productSlice.reducer;

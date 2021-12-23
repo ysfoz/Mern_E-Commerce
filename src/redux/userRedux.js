@@ -23,7 +23,6 @@ const userSlice = createSlice({
       state.isFetching = false;
       state.currentUser = action.payload;
       state.jwtToken = state.currentUser.jwtToken
-      console.log("🚀 ~ file: userRedux.js ~ line 26 ~ jwtToken", state.jwtToken)
     },
     registerSuccess:(state) => {
       state.isFetching = false
@@ -46,7 +45,6 @@ const userSlice = createSlice({
       state.error = false;
       state.isFetching =false
       state.currentUser = action.payload
-      // state.currentUser = {...action.payload, jwtToken:state.jwtToken}
      
       
     }

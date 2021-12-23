@@ -38,7 +38,7 @@ const Cart = () => {
   const cart = useSelector((state) => state.cart);
   const [stripeToken, setStripeToken] = useState(null);
   const [modalFlag, setModalFlag] = useState(false);
-  const [toasty, setToasty] = useState(false);
+  // const [toasty, setToasty] = useState(false);
   const dispatch = useDispatch();
 
   const navigate = useNavigate();
@@ -50,29 +50,31 @@ const Cart = () => {
 
   const makeRequest = async () => {
     try {
-      const res = await userRequest?.post("/checkout/payment", {
-        tokenId: stripeToken?.id,
-        amount: cart?.total,
-      });
+      const res = await userRequest.post("/checkout/payment", {
+        tokenId: stripeToken.id,
+        amount: cart.total * 100
+      })
+      // .then(setToasty(true))
       console.log(res);
-      setToasty(true);
+      navigate("/orders",{ state: {
+        stripeData: res.data,
+        products: cart,
+      }})
       dispatch(addProductsToOrders());
-      // navigate("/success", {
-      //   stripeData: res.data,
-      //   products: cart,
-      // });
-    } catch {}
+    } catch(err) {
+      console.log(err)
+    }
   };
 
   useEffect(() => {
-    stripeToken && makeRequest();
-  }, [stripeToken, cart.total, navigate]);
+    stripeToken && makeRequest()
+  }, [stripeToken, cart.total]);
 
-  useEffect(() => {
-    setTimeout(() => {
-      setToasty(false);
-    }, 5000);
-  }, [toasty]);
+  // useEffect(() => {
+  //   setTimeout(() => {
+  //     setToasty(false);
+  //   }, 5000);
+  // }, [toasty]);
 
   const getData = async (twochar) => {
     try {
@@ -100,11 +102,11 @@ const Cart = () => {
       <Navbar />
       <Announcement />
       <Wrapper>
-        {toasty && (
+        {/* {toasty && (
           <Toasty>
             You payed ${cart.total} for {cart.quantity} items succesfully`
           </Toasty>
-        )}
+        )} */}
         <Title>YOUR BAG</Title>
         <Top>
           <TopButton onClick={() => navigate("/")}>CONTINUE SHOPPING</TopButton>
@@ -126,9 +128,10 @@ const Cart = () => {
                 cart?.products?.map((product, index) => (
                   <CartProduct
                     product={product}
-                    index={index}
+                    key={index}
                     inWhichList="products"
                     seeLikeThisClicked={seeLikeThisClicked}
+                    inProducts
                   />
                 ))
               )}
@@ -140,7 +143,7 @@ const Cart = () => {
               {cart?.saveforlater?.map((product, index) => (
                 <CartProduct
                   product={product}
-                  index={index}
+                  key={index}
                   inWhichList="saveforlater"
                   seeLikeThisClicked={seeLikeThisClicked}
                 />

@@ -4,10 +4,12 @@ import Product from "./Product";
 import axios from "axios";
 import { useSelector } from "react-redux";
 
+
 const Products = ({ cat, filters, sort,homePage }) => {
   const [products, setProducts] = useState([]);
   const [filteredProducts, setFilteredProducts] = useState([]);
   const searchedText = useSelector((state) => state.product.searchText);
+
 
   // get all products with category
   const getAllData = async () => {
@@ -61,6 +63,8 @@ const Products = ({ cat, filters, sort,homePage }) => {
       );
     }
   };
+
+
   useEffect(() => {
     searchText();
   }, [searchedText]);
