@@ -17,6 +17,7 @@ import { Badge } from "@material-ui/core";
 import { Search, ShoppingCartOutlined } from "@material-ui/icons";
 import { useSelector, useDispatch } from "react-redux";
 import { logoutSuccess } from "../redux/userRedux";
+import { removeall } from "../redux/cartRedux";
 import { setUserSearchInput } from "../redux/productRedux";
 import avatar from "../assets/avatar.jpeg";
 import { useState } from "react";
@@ -32,6 +33,7 @@ const Navbar = (props) => {
 
   const logout = () => {
     dispatch(logoutSuccess());
+    dispatch(removeall())
   };
   const setUserInput = (value) => {
     dispatch(setUserSearchInput(value));

@@ -1,14 +1,31 @@
 import axios from "axios";
-import { getUserFailure, getUserStart, loginSuccess,registerSuccess,logoutSuccess,getUserDeleteSuccess,getUserUpdate } from "../redux/userRedux";
+import {
+  getUserFailure,
+  getUserStart,
+  loginSuccess,
+  registerSuccess,
+  logoutSuccess,
+  getUserDeleteSuccess,
+  getUserUpdate,
+} from "../redux/userRedux";
+import {
+  getCartStart,
+  getCartFailure,
+  addProduct,
+  changeQuantity,
+  deleteProduct,
+  addSaveForLater,
+  deleteSaveForLater,
+  addProductsFromSaveForLater,
+  addProductsToOrders,
+  setProductQuantity,
+  removeall,
+} from "../redux/cartRedux";
+const BASE_URL = "https://mern-e-commerce-api.herokuapp.com/api/";
 
-const BASE_URL ="https://mern-e-commerce-api.herokuapp.com/api/";
-
-
-
-
-const TOKEN = JSON.parse(JSON.parse(localStorage.getItem("persist:root"))?.user)?.jwtToken
-console.log("🚀 ~ file: requestMethods.js ~ line 10 ~ TOKEN11", TOKEN)
-
+const TOKEN = JSON.parse(
+  JSON.parse(localStorage.getItem("persist:root"))?.user
+)?.jwtToken;
 
 export const publicRequest = axios.create({
   baseURL: BASE_URL,
@@ -19,7 +36,6 @@ export const userRequest = axios.create({
   headers: { token: `Bearer ${TOKEN}` },
 });
 
-
 // USER
 
 // Login
@@ -27,7 +43,7 @@ export const login = async (dispatch, user) => {
   dispatch(getUserStart());
   try {
     const res = await publicRequest.post("/auth/login", user);
-    console.log(res)
+    console.log(res);
     dispatch(loginSuccess(res?.data));
   } catch (error) {
     dispatch(getUserFailure());
@@ -55,20 +71,14 @@ export const createUser = async (dispatch, newuser) => {
   }
 };
 
-//update did not work
+//update
 export const updateUser = async (dispatch, id, user) => {
-console.log("🚀 ~ file: requestMethods.js ~ line 60 ~ updateUser ~ id", id)
-console.log("🚀 ~ file: requestMethods.js ~ line 60 ~ updateUser ~ user", user)
-
-  
   dispatch(getUserStart());
   try {
-   const res = await userRequest.put(`/users/${id}`, user);
-   console.log("🚀 ~ file: requestMethods.js ~ line 65 ~ updateUser ~ res", res)
-    
+    const res = await userRequest.put(`/users/${id}`, user);
+
     dispatch(getUserUpdate(res?.data));
   } catch (error) {
-    console.log("🚀 ~ file: requestMethods.js ~ line 70 ~ updateUser ~ error", error)
     dispatch(getUserFailure());
   }
 };
@@ -86,5 +96,43 @@ export const deleteUser = async (id, dispatch) => {
   }
 };
 
+//Cart
 
+// create cart and add product +
+export const createUpdateCart = async (dispatch, userId, product) => {
+  dispatch(getCartStart());
+  try {
+    const res = await userRequest.post(`/carts/${userId}`, product);
+    dispatch(addProduct(res?.data?.products));
+  } catch (error) {
+    dispatch(getCartFailure());
+  }
+};
 
+// change product quantity in cart +
+
+export const changeQuantityDB = async(dispatch,userId,id,quantity)=>{
+
+  dispatch(getCartStart());
+  try {
+    const res = await userRequest.put(`/carts/${userId}`, {quantity,id});
+  
+    dispatch(setProductQuantity({id,quantity}));
+  } catch (error) {
+    dispatch(getCartFailure());
+  }
+}
+
+// delete nur ein product from cart
+
+export const deleteoneProductfromDB = async(dispatch,userId,id)=>{
+  dispatch(getCartStart());
+  try {
+    const res = await userRequest.post(`/carts/delete/${userId}`, {id:id});
+    
+    
+    dispatch(deleteProduct(id));
+  } catch (error) {
+    dispatch(getCartFailure());
+  }
+}

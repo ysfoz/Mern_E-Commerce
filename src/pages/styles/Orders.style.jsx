@@ -11,7 +11,7 @@ export const Container = styled.div`
 export const OrdersContainer =styled.div` 
 display: flex;
 flex-wrap:wrap;
-margin: 20px 40px;
+margin: 10px 20px;
 
 `
 

@@ -27,9 +27,10 @@ import Footer from "../components/Footer";
 import { Add, Remove } from "@material-ui/icons";
 import { useLocation } from "react-router-dom";
 import { publicRequest } from "../helper/requestMethods";
-import { addProduct } from "../redux/cartRedux";
+// import { addProduct } from "../redux/cartRedux";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import { createUpdateCart } from "../helper/requestMethods";
 
 const Product = () => {
   const location = useLocation();
@@ -41,14 +42,13 @@ const Product = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const currentUser = useSelector((state) => state.user.currentUser);
-  
 
   const fetchData = async () => {
     try {
       const res = await publicRequest.get("/products/find/" + id);
       setProduct(res?.data);
-      color === "" && setColor(res?.data?.color[0])
-      size === "" && setSize(res?.data?.size[0])
+      color === "" && setColor(res?.data?.color[0]);
+      size === "" && setSize(res?.data?.size[0]);
     } catch (error) {
       console.log(error);
     }
@@ -57,16 +57,25 @@ const Product = () => {
   const handleQuantity = (type) => {
     if (type === "dec") {
       quantity > 1 && setQuantity((prev) => prev - 1);
-      
     } else {
       setQuantity((prev) => prev + 1);
-      
     }
   };
 
   const handleClick = () => {
   
-    dispatch(addProduct({ ...product, quantity, color, size }));
+    createUpdateCart(dispatch, currentUser?._id, 
+      {
+      productId: product?._id,
+      title: product?.title,
+      price: product?.price,
+      img:product?.img,
+      quantity,
+      color,
+      size,
+    },
+  );
+    // dispatch(addProduct({ ...product, quantity, color, size }));
   };
 
   useEffect(() => {

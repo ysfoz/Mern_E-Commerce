@@ -8,12 +8,28 @@ const cartSlice = createSlice({
     orders: [],
     quantity: 0,
     total: 0,
+    isFetching:false,
+    error:false
   },
   reducers: {
+    getCartStart: (state) => {
+      state.isFetching = true;
+      state.error = false;
+      
+    },
+    getCartFailure: (state, action) => {
+      state.isFetching = false;
+      state.error = true;
+    },
+    //+
     addProduct: (state, action) => {
-      state.quantity += 1;
-      state.products.push(action.payload);
-      state.total += action.payload.price * action.payload.quantity;
+      state.total = 0
+      state.products = action.payload
+      // state.total += state.payload.price * state.payload.quantity
+      state.quantity = state.products?.length
+      for(let i = 0; i < state.products.length;i++){
+        state.total += state.products[i].price * state.products[i].quantity
+      }
     },
 
     deleteProduct: (state, action) => {
@@ -60,20 +76,19 @@ const cartSlice = createSlice({
       state.quantity = 0;
       state.total = 0;
     },
+    //+
     setProductQuantity: (state, action) => {
-      for (let i in state.products) {
-        if (state.products[i]._id === action.payload.id) {
-          if (state.products[i].quantity > action.payload.quantity) {
-            state.total -= state.products[i].price;
-          } else if (state.products[i].quantity < action.payload.quantity) {
-            state.total += state.products[i].price;
-          }
-          state.products[i].quantity = action.payload.quantity;
-        }
-      }
+     const product = state.products[state.products.findIndex((product)=> product._id === action.payload.id)]
+     if(product.quantity > action.payload.quantity){
+      state.total -= product.price
+     } else if(product.quantity < action.payload.quantity){
+      state.total += product.price
+     }
+     product.quantity = action.payload.quantity
+
     },
     removeall:(state)=>{
-      state.products= []
+    state.products= []
     state.saveforlater= []
     state.quantity= 0
     state.total= 0
@@ -82,8 +97,9 @@ const cartSlice = createSlice({
 });
 
 export const {
+  getCartStart,
+  getCartFailure,
   addProduct,
-  changeQuantity,
   deleteProduct,
   addSaveForLater,
   deleteSaveForLater,

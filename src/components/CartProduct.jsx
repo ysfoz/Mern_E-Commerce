@@ -15,19 +15,20 @@ import {
 } from "./styles/CartProduct.style";
 import { Add, Remove } from "@material-ui/icons";
 import CartFooter from "./CartFooter";
-import { useDispatch } from "react-redux";
-import { setProductQuantity, removeall } from "../redux/cartRedux";
+import { useDispatch,useSelector } from "react-redux";
+import {  removeall } from "../redux/cartRedux";
 import { useEffect, useState } from "react";
-
+import { changeQuantityDB } from "../helper/requestMethods"
 const CartProduct = ({
   product,
   inWhichList,
   seeLikeThisClicked,
   inProducts,
 }) => {
+  // console.log("🚀 ~ file: CartProduct.jsx ~ line 28 ~ product", product)
   const dispatch = useDispatch();
   const [quantity, setQuantity] = useState(product?.quantity);
-
+const userId = useSelector(state=> state.user?.currentUser?._id)
   const handleQuantity = (type) => {
     if (type === "dec") {
       quantity > 1 && setQuantity((prev) => prev - 1);
@@ -37,9 +38,7 @@ const CartProduct = ({
   };
 
   useEffect(() => {
-    // const id = product._id
-    // console.log("🚀 ~ file: CartProduct.jsx ~ line 39 ~ useEffect ~ id", id)
-    dispatch(setProductQuantity({ id: product._id, quantity: quantity }));
+    changeQuantityDB(dispatch,userId,product._id, quantity );
   }, [quantity]);
 
   return (

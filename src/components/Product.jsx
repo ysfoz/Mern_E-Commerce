@@ -6,17 +6,29 @@ import {
 } from "@material-ui/icons";
 import React from "react";
 import { Link } from "react-router-dom";
-import { useDispatch } from "react-redux";
+import { useDispatch,useSelector } from "react-redux";
 import {addProduct} from "../redux/cartRedux"
+import {createUpdateCart} from "../helper/requestMethods"
 
 
 
 
 const Product = ({ item }) => {
-// console.log("🚀 ~ file: Product.jsx ~ line 16 ~ Product ~ item", item)
+const currentUser = useSelector(state=> state.user.currentUser)
   const dispatch = useDispatch()
 
   const addProductToProductsList = () => {
+    createUpdateCart(dispatch, currentUser?._id, 
+      {
+      productId: item?._id,
+      title: item?.title,
+      price: item?.price,
+      img:item?.img,
+      quantity:1,
+      color:item.color[0],
+      size:item.size[0]
+    },
+  );
   dispatch(addProduct({...item,quantity:1,color:item.color[0],size:item.size[0]}))
   }
   return (

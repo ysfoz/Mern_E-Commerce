@@ -6,19 +6,22 @@ import {
   deleteSaveForLater,
   addProductsFromSaveForLater,
 } from "../redux/cartRedux";
-import { useDispatch } from "react-redux";
+import { useDispatch,useSelector } from "react-redux";
+import { deleteoneProductfromDB } from "../helper/requestMethods"
 
 
 const CartFooter = ({ product, inWhichList,seeLikeThisClicked }) => {
   const dispatch = useDispatch();
+  const userId = useSelector(state=> state.user?.currentUser?._id)
 
   const deleteItem = () => {
-    const id = product?._id;
-    if (inWhichList === "products") {
-      dispatch(deleteProduct(id));
-    } else {
-      dispatch(deleteSaveForLater(id));
-    }
+    deleteoneProductfromDB(dispatch,userId,product?._id)
+    
+    // if (inWhichList === "products") {
+    //   // dispatch(deleteProduct(id));
+    // } else {
+    //   dispatch(deleteSaveForLater(product._id));// bunu {id:product._id} seklinde yazmak gerekecek muhtemelen
+    // }
   };
 
   const addSaveForLaterList = () => {

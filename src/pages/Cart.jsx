@@ -16,7 +16,7 @@ import {
   SummeryItemNot,
   MainTitle,
   MainTitleContainer,
-  Toasty,
+ 
 } from "./styles/Cart.style";
 
 import CartProduct from "../components/CartProduct";
@@ -38,7 +38,6 @@ const Cart = () => {
   const cart = useSelector((state) => state.cart);
   const [stripeToken, setStripeToken] = useState(null);
   const [modalFlag, setModalFlag] = useState(false);
-  // const [toasty, setToasty] = useState(false);
   const dispatch = useDispatch();
 
   const navigate = useNavigate();
@@ -49,18 +48,17 @@ const Cart = () => {
   };
 
   const makeRequest = async () => {
+    
     try {
       const res = await userRequest.post("/checkout/payment", {
         tokenId: stripeToken.id,
         amount: cart.total * 100
-      })
-      // .then(setToasty(true))
-      console.log(res);
+      }).then(dispatch(addProductsToOrders()))
       navigate("/orders",{ state: {
         stripeData: res.data,
         products: cart,
       }})
-      dispatch(addProductsToOrders());
+      
     } catch(err) {
       console.log(err)
     }
@@ -70,11 +68,7 @@ const Cart = () => {
     stripeToken && makeRequest()
   }, [stripeToken, cart.total]);
 
-  // useEffect(() => {
-  //   setTimeout(() => {
-  //     setToasty(false);
-  //   }, 5000);
-  // }, [toasty]);
+
 
   const getData = async (twochar) => {
     try {
@@ -102,11 +96,6 @@ const Cart = () => {
       <Navbar />
       <Announcement />
       <Wrapper>
-        {/* {toasty && (
-          <Toasty>
-            You payed ${cart.total} for {cart.quantity} items succesfully`
-          </Toasty>
-        )} */}
         <Title>YOUR BAG</Title>
         <Top>
           <TopButton onClick={() => navigate("/")}>CONTINUE SHOPPING</TopButton>

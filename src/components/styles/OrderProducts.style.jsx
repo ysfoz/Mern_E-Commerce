@@ -11,9 +11,10 @@ export const Product = styled.div`
   border-bottom: 1px solid lightgray;
 
   /* margin-bottom: 3px; */
-  margin: 20px 10px;
+  margin: 20px 15px;
   background-color: white;
   padding: 20px 5px;
+  width: 28Vw;
   
 
   
