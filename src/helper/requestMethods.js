@@ -123,7 +123,7 @@ export const changeQuantityDB = async(dispatch,userId,id,quantity)=>{
   }
 }
 
-// delete nur ein product from cart
+// delete nur ein product from cart +
 
 export const deleteoneProductfromDB = async(dispatch,userId,id)=>{
   dispatch(getCartStart());
@@ -132,6 +132,19 @@ export const deleteoneProductfromDB = async(dispatch,userId,id)=>{
     
     
     dispatch(deleteProduct(id));
+  } catch (error) {
+    dispatch(getCartFailure());
+  }
+}
+
+// delete all product from cart an move to orders
+
+export const moveProductstoOrdersAndDelete = async(dispatch,userId)=> {
+  dispatch(getCartStart)
+  try {
+    const res = await userRequest.delete(`/carts/${userId}`)
+    console.log("🚀 ~ file: requestMethods.js ~ line 146 ~ moveProductstoOrdersAndDelete ~ res", res)
+    dispatch(addProductsToOrders())
   } catch (error) {
     dispatch(getCartFailure());
   }

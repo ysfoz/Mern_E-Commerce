@@ -32,6 +32,7 @@ const cartSlice = createSlice({
       }
     },
 
+    //+
     deleteProduct: (state, action) => {
       for (let i in state.products) {
         if (state.products[i]._id === action.payload) {
@@ -41,6 +42,11 @@ const cartSlice = createSlice({
         }
       }
     },
+
+  
+
+
+
     deleteSaveForLater: (state, action) => {
       for (let i in state.saveforlater) {
         if (state.saveforlater[i]._id === action.payload) {

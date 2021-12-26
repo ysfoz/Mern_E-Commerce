@@ -16,12 +16,8 @@ const CartFooter = ({ product, inWhichList,seeLikeThisClicked }) => {
 
   const deleteItem = () => {
     deleteoneProductfromDB(dispatch,userId,product?._id)
+    dispatch(deleteSaveForLater(product._id)); // for redux
     
-    // if (inWhichList === "products") {
-    //   // dispatch(deleteProduct(id));
-    // } else {
-    //   dispatch(deleteSaveForLater(product._id));// bunu {id:product._id} seklinde yazmak gerekecek muhtemelen
-    // }
   };
 
   const addSaveForLaterList = () => {

@@ -31,11 +31,13 @@ import { userRequest } from "../helper/requestMethods";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { addProductsToOrders } from "../redux/cartRedux";
+import {moveProductstoOrdersAndDelete} from "../helper/requestMethods"
 
 const KEY = process.env.REACT_APP_STRIPE;
 
 const Cart = () => {
   const cart = useSelector((state) => state.cart);
+  const userId = useSelector(state=> state.user?.currentUser?._id)
   const [stripeToken, setStripeToken] = useState(null);
   const [modalFlag, setModalFlag] = useState(false);
   const dispatch = useDispatch();
@@ -53,10 +55,13 @@ const Cart = () => {
       const res = await userRequest.post("/checkout/payment", {
         tokenId: stripeToken.id,
         amount: cart.total * 100
-      }).then(dispatch(addProductsToOrders()))
+      }).then(moveProductstoOrdersAndDelete(dispatch,userId))
+      // .then(dispatch(addProductsToOrders()))
       navigate("/orders",{ state: {
         stripeData: res.data,
-        products: cart,
+        products: cart.products,
+        quantity:cart.quantity,
+        total:cart.total
       }})
       
     } catch(err) {

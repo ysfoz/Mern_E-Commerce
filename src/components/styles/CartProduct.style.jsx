@@ -22,8 +22,8 @@ export const ProductDetail = styled.div`
 `;
 
 export const Image = styled.img`
-  max-width: 200px;
-  
+  max-width: 150px;
+  max-height: 170px;
   ${mobile({ alignSelf:"center"})}
   
 `;
