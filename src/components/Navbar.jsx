@@ -33,7 +33,7 @@ const Navbar = (props) => {
 
   const logout = () => {
     dispatch(logoutSuccess());
-    dispatch(removeall())
+    dispatch(removeall());
   };
   const setUserInput = (value) => {
     dispatch(setUserSearchInput(value));
@@ -124,6 +124,7 @@ const Navbar = (props) => {
                   <Link to={`/profile/${user?._id}`}>
                     <PopupItem
                       style={{ marginBottom: "3px" }}
+                      name
                     >{`${user?.username} profile`}</PopupItem>
                   </Link>
 

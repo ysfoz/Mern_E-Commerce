@@ -13,23 +13,17 @@ import OrderProducts from "../components/OrderProducts";
 import { useSelector, useDispatch } from "react-redux";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
-import {moveProductstoOrdersAndDelete} from "../helper/requestMethods"
+import { moveProductstoOrdersAndDelete } from "../helper/requestMethods";
 
 const ProductList = (props) => {
   const [stripeData, setStripeData] = useState({});
-  console.log(
-    "🚀 ~ file: Orders.jsx ~ line 20 ~ ProductList ~ stripeData",
-    stripeData
-  );
   const orders = useSelector((state) => state.cart.orders);
-  const userId = useSelector(state=> state.user?.currentUser?._id)
-  // const cart = useSelector((state) => state.cart);
+  const userId = useSelector((state) => state.user?.currentUser?._id);
   const location = useLocation();
   const navigate = useNavigate();
   const [toasty, setToasty] = useState(false);
-  const [idList,setIdList] =useState()
-  console.log("🚀 ~ file: Cart.jsx ~ line 44 ~ Cart ~ idList", idList)
-const dispatch = useDispatch()
+  const [idList, setIdList] = useState();
+  const dispatch = useDispatch();
   const setNavigateItems = () => {
     if (location.state) {
       setStripeData({
@@ -39,7 +33,7 @@ const dispatch = useDispatch()
         total: location.state.total,
       });
       setToasty(true);
-      moveProductstoOrdersAndDelete(dispatch,userId,idList)
+      moveProductstoOrdersAndDelete(dispatch, userId, idList);
     }
   };
 
@@ -53,10 +47,12 @@ const dispatch = useDispatch()
     }, 5000);
   }, [toasty]);
 
-  useEffect(()=>{
-    const productIdList = stripeData?.products?.map(product=> product.productId)
-    setIdList(productIdList)
-  },[stripeData])
+  useEffect(() => {
+    const productIdList = stripeData?.products?.map(
+      (product) => product.productId
+    );
+    setIdList(productIdList);
+  }, [stripeData]);
 
   return (
     <Container>
@@ -67,8 +63,8 @@ const dispatch = useDispatch()
       </Top>
       {toasty && stripeData && (
         <Toasty>
-          You payed ${stripeData?.total} for{" "}
-          {stripeData?.quantity} items succesfully`
+          You payed ${stripeData?.total} for {stripeData?.quantity} items
+          succesfully`
         </Toasty>
       )}
       <OrdersContainer>

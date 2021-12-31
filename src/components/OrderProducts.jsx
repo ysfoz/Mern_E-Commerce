@@ -1,13 +1,11 @@
 import { Link } from "react-router-dom";
 import {
-  ProductAmount,
   Details,
   ProductName,
   Product,
   ProductColor,
   ProductDetail,
   ProductId,
-  ProductPrice,
   ProductSize,
   Image,
   ColorSizeContainer,
@@ -35,17 +33,18 @@ const OrderProducts = ({ index, product }) => {
                 <b>Size:</b> {product?.size}
               </ProductSize>
             </ColorSizeContainer>
-            <ProductName><b>Quantity:</b> {product?.quantity}</ProductName>
             <ProductName>
-            <b>Total Price:</b> $ {product?.price * product?.quantity}
+              <b>Quantity:</b> {product?.quantity}
+            </ProductName>
+            <ProductName>
+              <b>Total Price:</b> $ {product?.price * product?.quantity}
             </ProductName>
             <Link to={`/product/${product._id}`}>
-            <Button>Buy it again</Button>
+              <Button>Buy it again</Button>
             </Link>
           </Details>
         </ProductDetail>
       </Product>
-      
     </>
   );
 };

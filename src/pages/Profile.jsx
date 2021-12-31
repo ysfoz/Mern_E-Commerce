@@ -25,10 +25,8 @@ import {
   deleteObject,
 } from "firebase/storage";
 import app from "../helper/firebase";
-import { updateUser, deleteUser } from "../helper/requestMethods";
 import { useDispatch } from "react-redux";
-import { useState, useEffect } from "react";
-import avatar from "../assets/avatar.jpeg";
+import { useState } from "react";
 import axios from "axios";
 import {
   getUserStart,
@@ -39,13 +37,8 @@ import {
 export default function User() {
   const location = useLocation();
   const userId = location?.pathname.split("/")[2];
-
   const user = useSelector((state) => state.user?.currentUser);
-  console.log("🚀 ~ file: Profile.jsx ~ line 39 ~ User ~ user", user);
   const jwtToken = useSelector((state) => state.user.jwtToken);
-  console.log("🚀 ~ file: Profile.jsx ~ line 41 ~ User ~ jwtToken", jwtToken);
-  // console.log("🚀 ~ file: Profile.jsx ~ line 38 ~ User ~ user", user)
-
   const [imgFile, setImgFile] = useState(null);
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -119,7 +112,7 @@ export default function User() {
     }
   };
 
-  const deleteData = async() =>{
+  const deleteData = async () => {
     dispatch(getUserStart());
     try {
       const token = `Bearer ${jwtToken}`;
@@ -127,13 +120,11 @@ export default function User() {
         `https://mern-e-commerce-api.herokuapp.com/api/users/${userId}`,
         { headers: { token } }
       );
-      console.log("🚀 ~ file: Profile.jsx ~ line 131 ~ deleteData ~ res", res)
       dispatch(getUserUpdate());
     } catch (error) {
       dispatch(getUserFailure());
     }
-  }
- 
+  };
 
   const handleClick = (values) => {
     if (imgFile) {
@@ -358,8 +349,6 @@ export default function User() {
                 ) : null}
               </UserUpdateItem>
 
-              {/* <UserUpdateRight> */}
-
               <UserUpdateButton type="submit" color="blue">
                 Update
               </UserUpdateButton>
@@ -370,7 +359,6 @@ export default function User() {
               >
                 Delete
               </UserUpdateButton>
-              {/* </UserUpdateRight> */}
             </UserUpdateForm>
           </UserUpdate>
         </UserContainer>

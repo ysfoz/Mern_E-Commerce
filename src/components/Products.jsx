@@ -4,12 +4,14 @@ import Product from "./Product";
 import axios from "axios";
 import { useSelector } from "react-redux";
 
-
-const Products = ({ cat, filters, sort,homePage }) => {
+const Products = ({ cat, filters, sort, homePage }) => {
   const [products, setProducts] = useState([]);
   const [filteredProducts, setFilteredProducts] = useState([]);
+  console.log(
+    "🚀 ~ file: Products.jsx ~ line 10 ~ Products ~ filteredProducts",
+    filteredProducts
+  );
   const searchedText = useSelector((state) => state.product.searchText);
-
 
   // get all products with category
   const getAllData = async () => {
@@ -33,6 +35,11 @@ const Products = ({ cat, filters, sort,homePage }) => {
       const productTitel = item.title.toUpperCase();
       return productTitel.indexOf(userText) > -1;
     });
+    console.log(
+      "🚀 ~ file: Products.jsx ~ line 35 ~ filteredList ~ filteredList",
+      filteredList
+    );
+    filteredList.sort((a, b) => b.salesAmount - a.salesAmount).slice(0, 8);
     setFilteredProducts(filteredList);
   };
 
@@ -64,7 +71,6 @@ const Products = ({ cat, filters, sort,homePage }) => {
     }
   };
 
-
   useEffect(() => {
     searchText();
   }, [searchedText]);
@@ -83,11 +89,14 @@ const Products = ({ cat, filters, sort,homePage }) => {
 
   return (
     <Container>
-      {cat || homePage
-        ? filteredProducts.map((item) => <Product item={item} key={item._id} />)
-        : products
+      {!searchedText
+        ? products
+            .sort((a, b) => b.salesAmount - a.salesAmount)
             .slice(0, 8)
-            .map((item) => <Product item={item} key={item._id} />)}
+            .map((item) => <Product item={item} key={item._id} />)
+        : filteredProducts.map((item) => (
+            <Product item={item} key={item._id} />
+          ))}
     </Container>
   );
 };

@@ -91,13 +91,15 @@ flex-direction: "column";
 top: '50px';
 z-index: 2;
 right: '20px';
-background-color: teal;
-border: 3px solid teal;
+background-color: white;
+border: 2px solid teal;
+
 `
 export const PopupItem =styled.button`
 border: none;
+border-bottom: ${props => props.name && '1px solid teal'} ;
 background-color: white;
-padding: 6px 12px;
+padding: 6px 22px;
 `
 
 export const LinkLogo = styled.img` 

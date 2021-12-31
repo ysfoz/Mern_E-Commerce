@@ -1,23 +1,20 @@
 import React from "react";
 import { Container, ButtonContainer, Button } from "./styles/CartFooter.style";
 import {
-  deleteProduct,
   addSaveForLater,
   deleteSaveForLater,
   addProductsFromSaveForLater,
 } from "../redux/cartRedux";
-import { useDispatch,useSelector } from "react-redux";
-import { deleteoneProductfromDB } from "../helper/requestMethods"
+import { useDispatch, useSelector } from "react-redux";
+import { deleteoneProductfromDB } from "../helper/requestMethods";
 
-
-const CartFooter = ({ product, inWhichList,seeLikeThisClicked }) => {
+const CartFooter = ({ product, inWhichList, seeLikeThisClicked }) => {
   const dispatch = useDispatch();
-  const userId = useSelector(state=> state.user?.currentUser?._id)
+  const userId = useSelector((state) => state.user?.currentUser?._id);
 
   const deleteItem = () => {
-    deleteoneProductfromDB(dispatch,userId,product?._id)
+    deleteoneProductfromDB(dispatch, userId, product?._id);
     dispatch(deleteSaveForLater(product._id)); // for redux
-    
   };
 
   const addSaveForLaterList = () => {
@@ -29,7 +26,6 @@ const CartFooter = ({ product, inWhichList,seeLikeThisClicked }) => {
     }
   };
 
-  
   return (
     <Container>
       <ButtonContainer>

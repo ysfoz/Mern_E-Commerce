@@ -27,7 +27,6 @@ import Footer from "../components/Footer";
 import { Add, Remove } from "@material-ui/icons";
 import { useLocation } from "react-router-dom";
 import { publicRequest } from "../helper/requestMethods";
-// import { addProduct } from "../redux/cartRedux";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { createUpdateCart } from "../helper/requestMethods";
@@ -63,19 +62,15 @@ const Product = () => {
   };
 
   const handleClick = () => {
-  
-    createUpdateCart(dispatch, currentUser?._id, 
-      {
+    createUpdateCart(dispatch, currentUser?._id, {
       productId: product?._id,
       title: product?.title,
       price: product?.price,
-      img:product?.img,
+      img: product?.img,
       quantity,
       color,
       size,
-    },
-  );
-    // dispatch(addProduct({ ...product, quantity, color, size }));
+    });
   };
 
   useEffect(() => {

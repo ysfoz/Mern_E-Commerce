@@ -8,14 +8,13 @@ const cartSlice = createSlice({
     orders: [],
     quantity: 0,
     total: 0,
-    isFetching:false,
-    error:false
+    isFetching: false,
+    error: false,
   },
   reducers: {
     getCartStart: (state) => {
       state.isFetching = true;
       state.error = false;
-      
     },
     getCartFailure: (state, action) => {
       state.isFetching = false;
@@ -23,12 +22,11 @@ const cartSlice = createSlice({
     },
     //+
     addProduct: (state, action) => {
-      state.total = 0
-      state.products = action.payload
-      // state.total += state.payload.price * state.payload.quantity
-      state.quantity = state.products?.length
-      for(let i = 0; i < state.products.length;i++){
-        state.total += state.products[i].price * state.products[i].quantity
+      state.total = 0;
+      state.products = action.payload;
+      state.quantity = state.products?.length;
+      for (let i = 0; i < state.products.length; i++) {
+        state.total += state.products[i].price * state.products[i].quantity;
       }
     },
 
@@ -42,10 +40,6 @@ const cartSlice = createSlice({
         }
       }
     },
-
-  
-
-
 
     deleteSaveForLater: (state, action) => {
       for (let i in state.saveforlater) {
@@ -65,6 +59,7 @@ const cartSlice = createSlice({
         }
       }
     },
+    // used nur in redux - not in DB
     addProductsFromSaveForLater: (state, action) => {
       for (let i in state.saveforlater) {
         if (state.saveforlater[i]._id === action.payload) {
@@ -77,30 +72,33 @@ const cartSlice = createSlice({
       }
     },
     addProductsToOrders: (state, action) => {
-      state.orders = [...state.products,...state.orders];
+      state.orders = [...state.products, ...state.orders];
       state.products = [];
       state.quantity = 0;
       state.total = 0;
     },
     //+
     setProductQuantity: (state, action) => {
-     const product = state.products[state.products.findIndex((product)=> product._id === action.payload.id)]
-     if(product.quantity > action.payload.quantity){
-      state.total -= product.price
-     } else if(product.quantity < action.payload.quantity){
-      state.total += product.price
-     }
-     product.quantity = action.payload.quantity
-
+      const product =
+        state.products[
+          state.products.findIndex(
+            (product) => product._id === action.payload.id
+          )
+        ];
+      if (product.quantity > action.payload.quantity) {
+        state.total -= product.price;
+      } else if (product.quantity < action.payload.quantity) {
+        state.total += product.price;
+      }
+      product.quantity = action.payload.quantity;
     },
-    removeall:(state)=>{
-    state.products= []
-    state.saveforlater= []
-    state.quantity= 0
-    state.total= 0
+    // for logout
+    removeall: (state) => {
+      state.products = [];
+      state.saveforlater = [];
+      state.quantity = 0;
+      state.total = 0;
     },
-
-    
   },
 });
 
@@ -114,6 +112,6 @@ export const {
   addProductsFromSaveForLater,
   addProductsToOrders,
   setProductQuantity,
-  removeall
+  removeall,
 } = cartSlice.actions;
 export default cartSlice.reducer;

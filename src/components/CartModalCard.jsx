@@ -36,9 +36,9 @@ const CartModalCard = ({ item }) => {
         </FilterContainer>
       </HeaderWrapper>
       <Link to={`/product/${item._id}`}>
-      <Button style={{ backgroundColor: selectedProductButtonColor()?.bg }}>
-        {selectedProductButtonColor()?.text || "See Details"}{" "}
-      </Button>
+        <Button style={{ backgroundColor: selectedProductButtonColor()?.bg }}>
+          {selectedProductButtonColor()?.text || "See Details"}{" "}
+        </Button>
       </Link>
     </Container>
   );

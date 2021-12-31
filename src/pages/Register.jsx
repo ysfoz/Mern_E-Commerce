@@ -50,10 +50,6 @@ const Register = () => {
       img: Yup.string(),
     }),
     onSubmit: (values) => {
-      console.log(
-        "🚀 ~ file: Register.jsx ~ line 119 ~ Register ~ values",
-        values
-      );
       imgFile ? handleClick(values) : createUser(dispatch, values);
       navigate("/login");
     },

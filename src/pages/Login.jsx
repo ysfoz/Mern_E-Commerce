@@ -1,13 +1,18 @@
-import { Container,Wrapper,Title,Form,Input,Error,ButtonWrapper,Button,Link} from "./styles/Login.style"
-
-
-
+import {
+  Container,
+  Wrapper,
+  Title,
+  Form,
+  Input,
+  Error,
+  ButtonWrapper,
+  Button,
+  Link,
+} from "./styles/Login.style";
 import { login } from "../helper/requestMethods";
 import { useDispatch, useSelector } from "react-redux";
 import { useFormik } from "formik";
 import * as Yup from "yup";
-
-
 
 const Login = () => {
   const dispatch = useDispatch();
@@ -41,7 +46,6 @@ const Login = () => {
             id="username"
             name="username"
             type="text"
-            placeholder="username"
             onChange={formik.handleChange}
             onBlur={formik.handleBlur}
             value={formik.values.username}

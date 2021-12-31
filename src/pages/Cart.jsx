@@ -16,7 +16,6 @@ import {
   SummeryItemNot,
   MainTitle,
   MainTitleContainer,
- 
 } from "./styles/Cart.style";
 
 import CartProduct from "../components/CartProduct";
@@ -24,25 +23,19 @@ import CartModal from "../components/CartModal";
 import Announcement from "../components/Announcement";
 import Footer from "../components/Footer";
 import Navbar from "../components/Navbar";
-import { useSelector, useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
 import StripeCheckout from "react-stripe-checkout";
 import { useState, useEffect } from "react";
 import { userRequest } from "../helper/requestMethods";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
-import { addProductsToOrders } from "../redux/cartRedux";
-import {moveProductstoOrdersAndDelete} from "../helper/requestMethods"
 
 const KEY = process.env.REACT_APP_STRIPE;
 
 const Cart = () => {
   const cart = useSelector((state) => state.cart);
-  const userId = useSelector(state=> state.user?.currentUser?._id)
   const [stripeToken, setStripeToken] = useState(null);
   const [modalFlag, setModalFlag] = useState(false);
-  // const [idList,setIdList] =useState()
-  // console.log("🚀 ~ file: Cart.jsx ~ line 44 ~ Cart ~ idList", idList)
-  const dispatch = useDispatch();
 
   const navigate = useNavigate();
   const [data, setData] = useState([]);
@@ -52,35 +45,27 @@ const Cart = () => {
   };
 
   const makeRequest = async () => {
-    
     try {
       const res = await userRequest.post("/checkout/payment", {
         tokenId: stripeToken?.id,
-        amount: cart?.total * 100
-      })
-      // .then(moveProductstoOrdersAndDelete(dispatch,userId,idList))
-      // .then(dispatch(addProductsToOrders()))
-      navigate("/orders",{ state: {
-        stripeData: res.data,
-        products: cart.products,
-        quantity:cart.quantity,
-        total:cart.total
-      }})
-      
-    } catch(err) {
-      console.log(err)
+        amount: cart?.total * 100,
+      });
+      navigate("/orders", {
+        state: {
+          stripeData: res.data,
+          products: cart.products,
+          quantity: cart.quantity,
+          total: cart.total,
+        },
+      });
+    } catch (err) {
+      console.log(err);
     }
   };
 
   useEffect(() => {
-    stripeToken && makeRequest()
-  }, [stripeToken, cart.total]);
-
-  // useEffect(()=>{
-  //   const productIdList = cart?.products?.map(product=> product.productId)
-  //   setIdList(productIdList)
-  // },[cart])
-
+    stripeToken && makeRequest();
+  }, [stripeToken, cart?.total]);
 
   const getData = async (twochar) => {
     try {

@@ -12,14 +12,9 @@ import {
   getCartStart,
   getCartFailure,
   addProduct,
-  changeQuantity,
   deleteProduct,
-  addSaveForLater,
-  deleteSaveForLater,
-  addProductsFromSaveForLater,
   addProductsToOrders,
   setProductQuantity,
-  removeall,
 } from "../redux/cartRedux";
 const BASE_URL = "https://mern-e-commerce-api.herokuapp.com/api/";
 
@@ -111,50 +106,49 @@ export const createUpdateCart = async (dispatch, userId, product) => {
 
 // change product quantity in cart +
 
-export const changeQuantityDB = async(dispatch,userId,id,quantity)=>{
-
+export const changeQuantityDB = async (dispatch, userId, id, quantity) => {
   dispatch(getCartStart());
   try {
-    const res = await userRequest.put(`/carts/${userId}`, {quantity,id});
-  
-    dispatch(setProductQuantity({id,quantity}));
+    await userRequest.put(`/carts/${userId}`, { quantity, id });
+
+    dispatch(setProductQuantity({ id, quantity }));
   } catch (error) {
     dispatch(getCartFailure());
   }
-}
+};
 
 // delete nur ein product from cart +
 
-export const deleteoneProductfromDB = async(dispatch,userId,id)=>{
+export const deleteoneProductfromDB = async (dispatch, userId, id) => {
   dispatch(getCartStart());
   try {
-    const res = await userRequest.post(`/carts/delete/${userId}`, {id:id});
-    
-    
+    await userRequest.post(`/carts/delete/${userId}`, { id: id });
+
     dispatch(deleteProduct(id));
   } catch (error) {
     dispatch(getCartFailure());
   }
-}
+};
 
 // delete all product from cart an move to orders
 
-export const moveProductstoOrdersAndDelete = async(dispatch,userId,idList)=> {
-console.log("🚀 ~ file: requestMethods.js ~ line 143 ~ moveProductstoOrdersAndDelete ~ idList", idList)
-  dispatch(getCartStart)
+export const moveProductstoOrdersAndDelete = async (
+  dispatch,
+  userId,
+  idList
+) => {
+  dispatch(getCartStart);
   try {
-    const res = await userRequest.delete(`/carts/${userId}`).then(increaseSaleAmount(userId,idList))
-    console.log("🚀 ~ file: requestMethods.js ~ line 147 ~ moveProductstoOrdersAndDelete ~ res", res)
-    dispatch(addProductsToOrders())
-    
+    await userRequest
+      .delete(`/carts/${userId}`)
+      .then(increaseSaleAmount(userId, idList));
+    dispatch(addProductsToOrders());
   } catch (error) {
     dispatch(getCartFailure());
   }
-}
+};
 
-export const increaseSaleAmount = async(userId,idList)=>{
-  const res = await userRequest.put(`/products/salesupdate/${userId}`,idList)
-  console.log("🚀 ~ file: requestMethods.js ~ line 155 ~ increaseSaleAmount ~ idList", idList)
-  console.log("🚀 ~ file: requestMethods.js ~ line 155 ~ increaseSaleAmount ~ res", res)
-
-}
+// increase SAleAmount in DB
+export const increaseSaleAmount = async (userId, idList) => {
+  await userRequest.put(`/products/salesupdate/${userId}`, idList);
+};
