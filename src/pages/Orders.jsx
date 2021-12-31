@@ -10,9 +10,10 @@ import Announcement from "../components/Announcement";
 import Newsletter from "../components/Newsletter";
 import Footer from "../components/Footer";
 import OrderProducts from "../components/OrderProducts";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
+import {moveProductstoOrdersAndDelete} from "../helper/requestMethods"
 
 const ProductList = (props) => {
   const [stripeData, setStripeData] = useState({});
@@ -21,10 +22,14 @@ const ProductList = (props) => {
     stripeData
   );
   const orders = useSelector((state) => state.cart.orders);
+  const userId = useSelector(state=> state.user?.currentUser?._id)
+  // const cart = useSelector((state) => state.cart);
   const location = useLocation();
   const navigate = useNavigate();
   const [toasty, setToasty] = useState(false);
-
+  const [idList,setIdList] =useState()
+  console.log("🚀 ~ file: Cart.jsx ~ line 44 ~ Cart ~ idList", idList)
+const dispatch = useDispatch()
   const setNavigateItems = () => {
     if (location.state) {
       setStripeData({
@@ -34,6 +39,7 @@ const ProductList = (props) => {
         total: location.state.total,
       });
       setToasty(true);
+      moveProductstoOrdersAndDelete(dispatch,userId,idList)
     }
   };
 
@@ -46,6 +52,11 @@ const ProductList = (props) => {
       setToasty(false);
     }, 5000);
   }, [toasty]);
+
+  useEffect(()=>{
+    const productIdList = stripeData?.products?.map(product=> product.productId)
+    setIdList(productIdList)
+  },[stripeData])
 
   return (
     <Container>

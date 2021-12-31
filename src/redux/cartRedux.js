@@ -98,7 +98,9 @@ const cartSlice = createSlice({
     state.saveforlater= []
     state.quantity= 0
     state.total= 0
-    }
+    },
+
+    
   },
 });
 

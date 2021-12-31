@@ -139,13 +139,22 @@ export const deleteoneProductfromDB = async(dispatch,userId,id)=>{
 
 // delete all product from cart an move to orders
 
-export const moveProductstoOrdersAndDelete = async(dispatch,userId)=> {
+export const moveProductstoOrdersAndDelete = async(dispatch,userId,idList)=> {
+console.log("🚀 ~ file: requestMethods.js ~ line 143 ~ moveProductstoOrdersAndDelete ~ idList", idList)
   dispatch(getCartStart)
   try {
-    const res = await userRequest.delete(`/carts/${userId}`)
-    console.log("🚀 ~ file: requestMethods.js ~ line 146 ~ moveProductstoOrdersAndDelete ~ res", res)
+    const res = await userRequest.delete(`/carts/${userId}`).then(increaseSaleAmount(userId,idList))
+    console.log("🚀 ~ file: requestMethods.js ~ line 147 ~ moveProductstoOrdersAndDelete ~ res", res)
     dispatch(addProductsToOrders())
+    
   } catch (error) {
     dispatch(getCartFailure());
   }
+}
+
+export const increaseSaleAmount = async(userId,idList)=>{
+  const res = await userRequest.put(`/products/salesupdate/${userId}`,idList)
+  console.log("🚀 ~ file: requestMethods.js ~ line 155 ~ increaseSaleAmount ~ idList", idList)
+  console.log("🚀 ~ file: requestMethods.js ~ line 155 ~ increaseSaleAmount ~ res", res)
+
 }

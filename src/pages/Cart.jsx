@@ -40,6 +40,8 @@ const Cart = () => {
   const userId = useSelector(state=> state.user?.currentUser?._id)
   const [stripeToken, setStripeToken] = useState(null);
   const [modalFlag, setModalFlag] = useState(false);
+  // const [idList,setIdList] =useState()
+  // console.log("🚀 ~ file: Cart.jsx ~ line 44 ~ Cart ~ idList", idList)
   const dispatch = useDispatch();
 
   const navigate = useNavigate();
@@ -53,9 +55,10 @@ const Cart = () => {
     
     try {
       const res = await userRequest.post("/checkout/payment", {
-        tokenId: stripeToken.id,
-        amount: cart.total * 100
-      }).then(moveProductstoOrdersAndDelete(dispatch,userId))
+        tokenId: stripeToken?.id,
+        amount: cart?.total * 100
+      })
+      // .then(moveProductstoOrdersAndDelete(dispatch,userId,idList))
       // .then(dispatch(addProductsToOrders()))
       navigate("/orders",{ state: {
         stripeData: res.data,
@@ -73,6 +76,10 @@ const Cart = () => {
     stripeToken && makeRequest()
   }, [stripeToken, cart.total]);
 
+  // useEffect(()=>{
+  //   const productIdList = cart?.products?.map(product=> product.productId)
+  //   setIdList(productIdList)
+  // },[cart])
 
 
   const getData = async (twochar) => {
