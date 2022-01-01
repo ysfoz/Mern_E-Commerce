@@ -11,7 +11,7 @@ import { addProduct } from "../redux/cartRedux";
 import { createUpdateCart } from "../helper/requestMethods";
 
 const Product = ({ item }) => {
-  const currentUser = useSelector((state) => state.user.currentUser);
+  const currentUser = useSelector((state) => state.user?.currentUser);
   const dispatch = useDispatch();
 
   const addProductToProductsList = () => {

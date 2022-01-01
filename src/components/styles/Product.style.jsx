@@ -31,8 +31,8 @@ export const Container = styled.div`
     }
 `
 export const Circle = styled.div`
-width: 200px;
-height: 200px;
+width: 270px;
+height: 330px;
 border-radius:50%;
 background-color: white ;
 position: absolute;

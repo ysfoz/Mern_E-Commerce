@@ -4,7 +4,7 @@ import Product from "./Product";
 import axios from "axios";
 import { useSelector } from "react-redux";
 
-const Products = ({ cat, filters, sort, homePage }) => {
+const Products = ({ cat, filters, sort }) => {
   const [products, setProducts] = useState([]);
   const [filteredProducts, setFilteredProducts] = useState([]);
   console.log(

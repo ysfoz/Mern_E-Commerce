@@ -25,14 +25,14 @@ export const Info = styled.div`
   align-items: center;
 `
 export const Title = styled.h1`
-  color: white;
+  color: azure;
   margin-bottom: 20px;
 `
 export const Button = styled.button`
   border: none;
   padding: 10px;
   background-color: white;
-  color: gray;
+  color: teal;
   cursor: pointer;
   font-weight: 600;
   border-radius: 5px;

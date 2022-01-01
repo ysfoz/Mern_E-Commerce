@@ -15,7 +15,6 @@ font-size: 40px;
 color: teal;
 padding: 15px;
 margin: 10px;
-/* background-color: teal; */
 font-weight: 500;
 border-bottom: 2px solid teal;
 border-top: 2px solid teal;
@@ -33,7 +32,7 @@ const Home = () => {
       <Slider />
       <Categories />
       <Title>Most Populer Products </Title>
-      <Products homePage />
+      <Products />
       <Newsletter />
       <Footer />
     </>

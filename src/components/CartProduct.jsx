@@ -73,7 +73,6 @@ const CartProduct = ({
           <ProductPrice style={{ fontSize: "12px", color: "blueviolet" }}>
             $ {product?.price * product.quantity}
           </ProductPrice>
-          <Remove onClick={() => dispatch(removeall())} />
         </PriceDetail>
       </Product>
       <CartFooter

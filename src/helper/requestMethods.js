@@ -94,10 +94,10 @@ export const deleteUser = async (id, dispatch) => {
 //Cart
 
 // create cart and add product +
-export const createUpdateCart = async (dispatch, userId, product) => {
+export const createUpdateCart = async (dispatch, id, product) => {
   dispatch(getCartStart());
   try {
-    const res = await userRequest.post(`/carts/${userId}`, product);
+    const res = await userRequest.post(`/carts/${id}`, product);
     dispatch(addProduct(res?.data?.products));
   } catch (error) {
     dispatch(getCartFailure());
