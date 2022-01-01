@@ -16,7 +16,6 @@ import {
 import { Add, Remove } from "@material-ui/icons";
 import CartFooter from "./CartFooter";
 import { useDispatch, useSelector } from "react-redux";
-import { removeall } from "../redux/cartRedux";
 import { useEffect, useState } from "react";
 import { changeQuantityDB } from "../helper/requestMethods";
 const CartProduct = ({
