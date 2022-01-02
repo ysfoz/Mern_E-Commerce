@@ -4,7 +4,7 @@ import { mobile, tablet } from "../../responsive";
 export const Container = styled.div`
   height: 60px;
   background-color: floralwhite;
-  ${mobile({ height: "50px", marginBottom: "10px" })}
+  ${mobile({ height: "50px" })}
 `;
 export const Wrapper = styled.div`
   display: flex;
@@ -34,7 +34,7 @@ export const Input = styled.input`
   }
 
   ${mobile({ width: "50px" })}
-  ${tablet({ width: "70px" })}
+  ${tablet({ width: "90px" })}
 `;
 
 export const Center = styled.div`
@@ -48,7 +48,7 @@ export const Logo = styled.h1`
   font-weight: bold;
   color: teal;
   ${mobile({ fontSize: "16px" })}
-  ${tablet({ fontSize: "20px" })}
+  
 `;
 
 export const Right = styled.div`
