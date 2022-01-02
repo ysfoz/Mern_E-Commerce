@@ -1,5 +1,6 @@
 import {
   UserContainer,
+  UserAllContainer,
   UserShow,
   UserShowBottom,
   UserShowInfo,
@@ -198,7 +199,7 @@ export default function User() {
       <UserTitleContainer>
         <h1 className="userTitle">Edit User</h1>
       </UserTitleContainer>
-      <div style={{ display: "flex", justifyContent: "center" }}>
+      <UserAllContainer >
         <UserContainer>
           <UserShow>
             <UserShowBottom>
@@ -362,7 +363,7 @@ export default function User() {
             </UserUpdateForm>
           </UserUpdate>
         </UserContainer>
-      </div>
+      </UserAllContainer>
     </UserWrapper>
   );
 }

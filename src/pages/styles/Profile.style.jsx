@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import {mobile,tablet} from "../../responsive"
 
 export const UserWrapper = styled.div`
   padding: 20px;
@@ -9,18 +10,26 @@ export const UserTitleContainer = styled.div`
   align-items: center;
   justify-content: space-between;
 `;
+export const UserAllContainer = styled.div` 
+display: flex;
+justify-content: center;
+`
 
 export const UserContainer = styled.div`
   display: flex;
   margin-top: 20px;
   width: 60%;
   justify-content: space-around;
+  ${mobile({flexDirection: "column", width:"100%"})}
+  
 `;
 
 export const UserShow = styled.div`
   padding: 20px;
   -webkit-box-shadow: 0px 0px 15px -10px rgba(0, 0, 0, 0.75);
   box-shadow: 0px 0px 15px -10px rgba(0, 0, 0, 0.75);
+  ${mobile({marginBottom:"20px"})}
+  
 `;
 
 export const UserUpdate = styled.div`
@@ -29,6 +38,7 @@ export const UserUpdate = styled.div`
   box-shadow: 0px 0px 15px -10px rgba(0, 0, 0, 0.75);
   margin-left: 20px;
   display: flex;
+  ${mobile({marginLeft:"0px"})}
 `;
 
 export const UserShowBottom = styled.div`
@@ -95,4 +105,5 @@ export const UserUpdateButton = styled.button`
   background-color: ${(props) => props.color};
   color: white;
   font-weight: 600;
+  ${mobile({marginTop:"10px"})}
 `;
