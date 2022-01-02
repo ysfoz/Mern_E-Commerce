@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-import { mobile } from "../../responsive";
+import { mobile,tablet } from "../../responsive";
 
 export const Container = styled.div``;
 export const Wrapper = styled.div`

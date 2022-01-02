@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import {  mobile } from "../../responsive";
+import {  mobile,tablet } from "../../responsive";
 
 
 
@@ -10,6 +10,7 @@ background-color:#eee;
 export const Wrapper = styled.div`
   padding: 20px;
   ${mobile({ padding: "10px" })}
+  
 `;
 
 export const Title = styled.h1`

@@ -4,7 +4,7 @@ import Product from "./Product";
 import axios from "axios";
 import { useSelector } from "react-redux";
 
-const Products = ({ cat, filters, sort }) => {
+const Products = ({ cat, filters, sort,homepage }) => {
   const [products, setProducts] = useState([]);
   const [filteredProducts, setFilteredProducts] = useState([]);
   console.log(
@@ -35,11 +35,7 @@ const Products = ({ cat, filters, sort }) => {
       const productTitel = item.title.toUpperCase();
       return productTitel.indexOf(userText) > -1;
     });
-    console.log(
-      "🚀 ~ file: Products.jsx ~ line 35 ~ filteredList ~ filteredList",
-      filteredList
-    );
-    filteredList.sort((a, b) => b.salesAmount - a.salesAmount).slice(0, 8);
+   
     setFilteredProducts(filteredList);
   };
 
@@ -89,7 +85,10 @@ const Products = ({ cat, filters, sort }) => {
 
   return (
     <Container>
-      {!searchedText
+      
+
+      
+      {!searchedText && homepage
         ? products
             .sort((a, b) => b.salesAmount - a.salesAmount)
             .slice(0, 8)
@@ -97,6 +96,7 @@ const Products = ({ cat, filters, sort }) => {
         : filteredProducts.map((item) => (
             <Product item={item} key={item._id} />
           ))}
+          
     </Container>
   );
 };

@@ -1,4 +1,5 @@
 import styled from 'styled-components'
+import {mobile,tablet,bigScreen} from "../../responsive"
 
 export const Info = styled.div`
 opacity: 0;
@@ -16,26 +17,32 @@ transition: all 0.5s ease;
 
 `
 export const Container = styled.div`
-    flex: 1;
+    /* flex: 1; */
     margin: 5px;
-    min-width: 280px;
+    min-width: 250px;
+    width:32%;
+    max-width: 400px;
+    ${mobile("width:90%")}
+    ${tablet("width:40%")}
     height: 350px;
     display: flex;
     align-items: center;
     justify-content:center ;
     background-color: #f5fbfd;
     position: relative;
+    ${bigScreen("width:24%")}
 
     &:hover ${Info} {
         opacity: 1;
     }
 `
 export const Circle = styled.div`
-width: 270px;
+width: 80%;
 height: 330px;
 border-radius:50%;
 background-color: white ;
 position: absolute;
+
 `
 
 export const Image = styled.img`

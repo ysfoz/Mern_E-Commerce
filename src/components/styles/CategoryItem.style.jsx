@@ -6,6 +6,7 @@ flex  :1 ;
 margin: 3px;
 height: 70vh;
 position: relative;
+${mobile({margin:"2px 10px"})}
 `
 export const Image = styled.img`
  width :100% ;
