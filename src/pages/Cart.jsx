@@ -96,7 +96,7 @@ const Cart = () => {
         <Title>YOUR BAG</Title>
         <Top>
           <TopButton onClick={() => navigate("/")}>CONTINUE SHOPPING</TopButton>
-          <TopTexts></TopTexts>
+          
           <Link to={"/orders"}>
             <TopButton type="filled">Orders</TopButton>
           </Link>

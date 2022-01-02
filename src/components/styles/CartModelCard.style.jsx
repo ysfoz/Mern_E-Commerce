@@ -1,13 +1,15 @@
 import styled from "styled-components";
+import { mobile,tablet } from "../../responsive";
 
 export const Container = styled.div`
   display: flex;
-  width: 25%;
+  width: 30%;
   margin-left: 15px;
   flex-direction: column;
   margin-bottom: 20px;
-
   align-items: center;
+  ${mobile({width:"60%"})}
+  ${tablet({width:"35%"})}
 `;
 export const Image = styled.img`
   flex: 1.3;

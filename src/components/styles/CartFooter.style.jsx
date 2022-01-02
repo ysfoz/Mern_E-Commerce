@@ -1,13 +1,14 @@
 import styled from "styled-components";
+import { mobile } from "../../responsive"
 
 
 export const Container = styled.div`
 display: flex;
 justify-content: center;
 align-items: center;
-/* margin-bottom: 5px; */
 background-color: white;
 margin-right: 25px;
+${mobile({marginBottom:'10px', marginRight:'0px'})}
 `
 export const ButtonContainer = styled.div`
 display: flex;

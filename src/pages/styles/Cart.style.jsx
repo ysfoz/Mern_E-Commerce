@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import {  mobile,tablet } from "../../responsive";
+import {  mobile } from "../../responsive";
 
 
 
@@ -23,7 +23,7 @@ export const Top = styled.div`
   align-items: center;
   justify-content: space-between;
   padding: 20px;
-  ${mobile({ padding: "20px 5px " })}
+  ${mobile({ padding: "20px 5px" })}
 `;
 
 export const TopButton = styled.button`
@@ -36,17 +36,9 @@ export const TopButton = styled.button`
   background-color: ${(props) =>
     props.type === "filled" ? "black" : "transparent"};
   color: ${(props) => props.type === "filled" && "white"};
-  ${mobile({ width: "48%" })}
+  
 `;
 
-export const TopTexts = styled.div`
-  ${mobile({ display: "none" })}
-`;
-export const TopText = styled.span`
-  text-decoration: underline;
-  cursor: pointer;
-  margin: 0px 10px;
-`;
 
 export const Bottom = styled.div`
   display: flex;
@@ -72,6 +64,7 @@ export const Summery = styled.div`
   border-radius: 10px;
   padding: 20px;
   height: 50vh;
+  ${mobile({marginTop:"20px"})}
 `;
 
 export const SummeryTitle = styled.h1`
@@ -115,21 +108,5 @@ padding: 10px;
 export const MainTitleContainer = styled.div` 
 flex:3;
 ` 
-// export const Toasty = styled.div` 
-// background-color: lightgreen;
-// /* width: fit-content; */
-// padding: 20px;
-// color: aliceblue;
-// font-size: 20px;
-// font-weight: 600;
-// text-align: center;
-// position: relative;
-//   animation: mymove 5s infinite;
-//   animation-timing-function: ease;
-//  @keyframes mymove {
-//   from {bottom: 90%;}
-//   to {top: 0px;}
-  
-// }
-// `
+
 

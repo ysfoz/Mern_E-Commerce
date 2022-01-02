@@ -62,14 +62,14 @@ const CartProduct = ({
           </Details>
         </ProductDetail>
         <PriceDetail>
-          <ProductAmountContainer>
+          <ProductAmountContainer style={{display:!inProducts && "none"}}>
             <Remove onClick={() => inProducts && handleQuantity("dec")} />
 
             <ProductAmount>{quantity}</ProductAmount>
             <Add onClick={() => inProducts && handleQuantity("inc")} />
           </ProductAmountContainer>
           <ProductPrice>$ {product?.price}</ProductPrice>
-          <ProductPrice style={{ fontSize: "12px", color: "blueviolet" }}>
+          <ProductPrice style={{ fontSize: "12px", color: "blueviolet", display: !inProducts && 'none'}}>
             $ {product?.price * product.quantity}
           </ProductPrice>
         </PriceDetail>

@@ -28,7 +28,7 @@ const Footer = () => {
   return (
     <Container>
       <Left>
-        <Logo>SHOPPING</Logo>
+        <Logo>Shoppingoo</Logo>
         <Desc>
           Lorem ipsum dolor sit amet consectetur adipisicing elit. Nesciunt
           libero nemo eveniet excepturi et ea tenetur consectetur sint hic

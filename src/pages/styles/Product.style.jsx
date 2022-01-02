@@ -6,21 +6,27 @@ export const Container = styled.div``;
 export const Wrapper = styled.div`
   padding: 50px;
   display: flex;
-  ${mobile({ flexDirection: "column", padding: "10px" })}
+  ${mobile({ flexDirection: "column", padding: "10px",alignItems:"center" })}
+  ${tablet({ flexDirection: "column", padding: "10px",alignItems:"center"})}
 `;
 export const ImgContainer = styled.div`
   flex: 1;
+  ${mobile({ display: "flex", justifyContent:"center" })}
+  ${tablet({ display: "flex", justifyContent:"center" })}
+  
 `;
 export const Image = styled.img`
-  width: 100%;
-  height: 90vh;
   object-fit: cover;
-  ${mobile({ height: "40vh" })}
+  ${mobile({ height: "60vh",width:'auto' })}
+  ${tablet({ height: "70vh",width:'auto' })}
+ 
 `;
 export const InfoContainer = styled.div`
   flex: 1;
   padding: 0 50px;
   ${mobile({ padding: "10px" })}
+  ${tablet({ padding: "10px" })}
+  
 `;
 export const Title = styled.h1`
   font-weight: 200;
@@ -38,7 +44,9 @@ export const FilterContainer = styled.div`
   margin: 30px 0px;
   display: flex;
   justify-content: space-between;
-  ${mobile({ width: "100%" })}
+  ${tablet({width: '100%',justifyContent:"space-between"})}
+  ${mobile({ width: "100%", justifyContent:"space-between" })}
+  
 `;
 export const Filter = styled.div`
   display: flex;
@@ -47,6 +55,7 @@ export const Filter = styled.div`
 export const FilterTitle = styled.span`
   font-size: 20px;
   font-weight: 200;
+  
 `;
 export const FilterColor = styled.div`
   width: 20px;
@@ -55,23 +64,32 @@ export const FilterColor = styled.div`
   background-color: ${(props) => props.color};
   margin: 0px 5px;
   cursor: pointer;
+  ${tablet({width: '40px',height:"40px",margin:"0px 15px"})}
+  
+
 `;
 export const FilterSize = styled.select`
   margin-left: 5px;
   padding: 5px;
+  ${tablet({ fontSize: "20px" })}
+  
 `;
-export const FilterSizeOption = styled.option``;
+export const FilterSizeOption = styled.option`
+`;
+
 export const AddContainer = styled.div`
   width: 50%;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  ${mobile({ width: "100%" })}
+  ${mobile({ width: "100%", justifyContent:"space-between" })}
+  ${tablet({ width: "100%", justifyContent:"space-between" })}
 `;
 export const AmountContainer = styled.div`
   display: flex;
   align-items: center;
   font-weight: 700;
+  ${tablet({marginRight: '100px'})}
 `;
 export const Amount = styled.span`
   width: 30px;

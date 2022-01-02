@@ -1,4 +1,5 @@
 import styled from "styled-components"
+import { mobile } from "../../responsive"
 
 export const ModalContainer= styled.div` 
 position: fixed;
@@ -24,6 +25,7 @@ flex:1;
 export const ModalHeader= styled.div` 
 margin: 10px;
 font-size: 20px;
+${mobile({fontSize:"14px"})}
 `
 export const Button= styled.button` 
 padding: 5px 10px ;
@@ -33,7 +35,7 @@ margin: 10px;
 :hover{
     cursor:pointer;
 }
-
+${mobile({fontSize:"12px",padding:"3px 5px"})}
 `
 
 export const Wrapper = styled.div` 
@@ -44,7 +46,7 @@ background-color: white;
 
 display:flex;
 flex-direction: column;
-/* justify-content: space-between; */
+
 `
 
 export const CardWrapper = styled.div` 
@@ -52,7 +54,6 @@ display: flex;
 background-color: white;
 flex:4;
 margin: 0px 10px 20px 10px;
-/* justify-content: space-evenly; */
 overflow: scroll;
 scrollbar-color:green;
 
