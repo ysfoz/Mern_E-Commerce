@@ -16,7 +16,9 @@ export const ImgContainer = styled.div`
   
 `;
 export const Image = styled.img`
-  object-fit: cover;
+height: 70vh;
+width: 100%;
+  object-fit: contain;
   ${mobile({ height: "60vh",width:'auto' })}
   ${tablet({ height: "70vh",width:'auto' })}
  
