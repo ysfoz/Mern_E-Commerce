@@ -6,6 +6,7 @@ export const sliderItems = [
       title: "SUMMER SALE",
       desc: "DON'T COMPROMISE ON STYLE! GET FLAT 30% OFF FOR NEW ARRIVALS.",
       bg: "fbf0f4",
+      cat:"summer"
      
     },
     {
@@ -14,6 +15,7 @@ export const sliderItems = [
       title: "AUTUMN COLLECTION",
       desc: "DON'T COMPROMISE ON STYLE! GET FLAT 30% OFF FOR NEW ARRIVALS.",
       bg: "fcf1ed",
+      cat:"winter"
     },
     {
       id: 3,
@@ -22,6 +24,7 @@ export const sliderItems = [
       title: "ACCESSORY",
       desc: "DON'T COMPROMISE ON STYLE! GET FLAT 30% OFF FOR NEW ARRIVALS.",
       bg: "f5fafd",
+      cat:"accessories"
     },
   ];
 

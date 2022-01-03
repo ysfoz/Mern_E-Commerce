@@ -36,9 +36,39 @@ export const Title = styled.h1`
 export const Desc = styled.p`
   margin: 20px 0px;
 `;
+
+
 export const Price = styled.span`
+position: relative;
   font-weight: 100;
   font-size: 40px;
+  
+  `;
+export const OldPrice = styled.span`
+position: relative;
+  font-weight: 100;
+  font-size: 30px;
+  margin-right:  20px;
+  
+
+  
+  :before {
+  position: absolute;
+  color:crimson;
+  content: "";
+  left: 0;
+  top: 50%;
+  right: 0;
+  border-top: 2px solid ;
+  border-color: inherit;
+  
+  -webkit-transform:rotate(-5deg);
+  -moz-transform:rotate(-5deg);
+  -ms-transform:rotate(-5deg);
+  -o-transform:rotate(-5deg);
+  transform:rotate(-5deg);
+
+}
 `;
 
 export const FilterContainer = styled.div`

@@ -34,7 +34,7 @@ const Product = ({ item }) => {
     );
   };
   return (
-    <Container>
+    <Container bg={item.inSale ? "rgba(251,233,231,0.3)" : "#f5fbfd"}>
       <Circle />
       <Image src={item.img} />
       <Info>

@@ -17,6 +17,7 @@ import {
   Amount,
   AmountContainer,
   Button,
+  OldPrice
 } from "./styles/Product.style";
 import React, { useEffect, useState } from "react";
 
@@ -88,6 +89,7 @@ const Product = () => {
         <InfoContainer>
           <Title>{product?.title}</Title>
           <Desc>{product?.desc}</Desc>
+          { product?.inSale && <OldPrice inSale>$ {Math.floor(product?.price + (product?.price * 0.3))}</OldPrice>}
           <Price>$ {product?.price}</Price>
           <FilterContainer>
             <Filter>

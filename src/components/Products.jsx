@@ -7,10 +7,7 @@ import { useSelector } from "react-redux";
 const Products = ({ cat, filters, sort,homepage }) => {
   const [products, setProducts] = useState([]);
   const [filteredProducts, setFilteredProducts] = useState([]);
-  console.log(
-    "🚀 ~ file: Products.jsx ~ line 10 ~ Products ~ filteredProducts",
-    filteredProducts
-  );
+  
   const searchedText = useSelector((state) => state.product.searchText);
 
   // get all products with category
@@ -21,7 +18,14 @@ const Products = ({ cat, filters, sort,homepage }) => {
           ? `https://mern-e-commerce-api.herokuapp.com/api/products?category=${cat}`
           : `https://mern-e-commerce-api.herokuapp.com/api/products`
       );
-      setProducts(res?.data);
+      if(cat==="summer" || cat ==="winter" || cat ==="accessories"){
+        const filteredData = res?.data.filter((product)=> {
+          return product.inSale === true
+        })
+        setProducts(filteredData);
+      } else {
+        setProducts(res?.data);
+      }
     } catch (error) {
       console.log(error);
     }

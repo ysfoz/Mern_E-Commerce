@@ -26,7 +26,7 @@ export const Container = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: #f5fbfd;
+  background-color: ${props => props.bg };
   position: relative;
   ${bigScreen("width:24%")}
 
