@@ -124,7 +124,7 @@ const Navbar = (props) => {
                   <Link to={`/profile/${user?._id}`}>
                     <PopupItem
                       style={{ marginBottom: "3px" }}
-                      name
+                      name="true"
                     >{`${user?.username} profile`}</PopupItem>
                   </Link>
 

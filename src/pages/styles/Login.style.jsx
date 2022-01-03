@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-import { mobile } from "../../responsive";
+import { mobile,tablet,ipadpro } from "../../responsive";
 
 export const Container = styled.div`
   width: 100vw;
@@ -17,10 +17,12 @@ export const Container = styled.div`
   align-items: center;
 `;
 export const Wrapper = styled.div`
-  width: 25%;
+  width: 35%;
   padding: 20px;
   background-color: white;
   ${mobile({ width: "75%" })}
+  ${tablet({ width: "50%" })}
+  ${ipadpro({ width: "50%" })}
 `;
 export const Title = styled.h1`
   font-size: 24px;
@@ -33,7 +35,7 @@ export const Form = styled.form`
 export const Input = styled.input`
   flex: 1;
   min-width: 40%;
-  margin: 10px 0px;
+  margin: 16px 0px;
   padding: 10px;
 `;
 export const Button = styled.button`
