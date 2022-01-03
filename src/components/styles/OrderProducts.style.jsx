@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { mobile, tablet } from "../../responsive";
+import { mobile} from "../../responsive";
 
 export const Product = styled.div`
   display: flex;
@@ -7,17 +7,17 @@ export const Product = styled.div`
   margin: 10px 5px;
   background-color: white;
   padding: 10px 5px;
+  flex-direction: column;
 `;
 export const ProductDetail = styled.div`
   display: flex;
-  ${mobile({ flexDirection: "column", marginRight: "3px" })}
-  ${tablet({ flexDirection: "column", marginRight: "3px" })}
+  flex-direction: column;
 `;
 
 export const Image = styled.img`
   max-width: 150px;
   max-height: 170px;
-  ${mobile({ alignSelf: "center" })};
+  align-self: center;
 `;
 export const Details = styled.div`
   padding: 20px;

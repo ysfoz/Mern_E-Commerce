@@ -1,14 +1,24 @@
 import styled from "styled-components";
-import { mobile } from "../../responsive";
+import { mobile,tablet,ipadpro } from "../../responsive";
 
 export const Container = styled.div``;
 
 export const OrdersContainer = styled.div`
   display: flex;
-  flex-wrap: wrap;
   margin: 10px;
-  ${mobile({ justifyContent: "center" })}
+  justify-content: center;
+
 `;
+
+
+export const Wrapper= styled.div` 
+display: flex;
+flex-wrap: wrap;
+justify-content: flex-start;
+${mobile({justifyContent:"center"})}
+${tablet({width:"80%"})}
+${ipadpro({width:"80%",justifyContent:"space-between"})}
+`
 
 export const Toasty = styled.div`
   background-color: lightgreen;

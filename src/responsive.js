@@ -14,6 +14,13 @@ export const tablet = (props) => {
     }
   `;
 };
+export const ipadpro = (props) => {
+  return css`
+    @media only screen and  (min-width: 821px) and (max-width:1025px){
+      ${props}
+    }
+  `;
+};
 export const bigScreen = (props) => {
   return css`
     @media only screen and (min-width: 1450px) {

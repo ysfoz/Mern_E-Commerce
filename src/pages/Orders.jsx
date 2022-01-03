@@ -4,6 +4,7 @@ import {
   Toasty,
   TopButton,
   Top,
+  Wrapper
 } from "./styles/Orders.style";
 import Navbar from "../components/Navbar";
 import Announcement from "../components/Announcement";
@@ -69,9 +70,12 @@ const ProductList = (props) => {
         </Toasty>
       )}
       <OrdersContainer>
+        <Wrapper >
+
         {orders?.map((product, i) => (
           <OrderProducts product={product} key={i} />
-        ))}
+          ))}
+          </Wrapper>
       </OrdersContainer>
       <Newsletter />
       <Footer />
