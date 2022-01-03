@@ -76,8 +76,15 @@ margin: 50px 0px;
 `;
 
 export const Button = styled.button`
+font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande",
+    "Lucida Sans", Arial, sans-serif;
+  /* font-weight: bold; */
+color:teal;
 padding: 10px;
-font-size: 20px;
+font-size: 16px;
 background-color: transparent;
 cursor: pointer;
+border: 2px solid transparent;
+border-radius: 5px;
+box-shadow: 0 4px 8px 3px rgba(0, 50.2, 50.2, 0.4), 0 6px 20px 3px rgba(0, 50.2, 50.2, 0.4);
 `;

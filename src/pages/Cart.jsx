@@ -11,7 +11,6 @@ import {
   Wrapper,
   Title,
   Top,
-  TopTexts,
   Info,
   SummeryItemNot,
   MainTitle,

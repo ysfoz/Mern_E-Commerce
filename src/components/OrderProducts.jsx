@@ -1,4 +1,4 @@
-import { Link,useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import {
   Details,
   ProductName,
@@ -13,7 +13,7 @@ import {
 } from "./styles/OrderProducts.style";
 
 const OrderProducts = ({ index, product }) => {
-  const navigate =useNavigate()
+  
   return (
     <>
       <Product key={index}>

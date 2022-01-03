@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import {mobile,tablet} from "../../responsive"
+import {mobile} from "../../responsive"
 
 export const UserWrapper = styled.div`
   padding: 20px;
