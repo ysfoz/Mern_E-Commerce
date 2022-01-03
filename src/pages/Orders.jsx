@@ -42,6 +42,7 @@ const ProductList = (props) => {
   }, []);
 
   useEffect(() => {
+    toasty &&
     setTimeout(() => {
       setToasty(false);
     }, 5000);

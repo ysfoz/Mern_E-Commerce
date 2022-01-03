@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link,useNavigate } from "react-router-dom";
 import {
   Details,
   ProductName,
@@ -13,6 +13,7 @@ import {
 } from "./styles/OrderProducts.style";
 
 const OrderProducts = ({ index, product }) => {
+  const navigate =useNavigate()
   return (
     <>
       <Product key={index}>
@@ -39,8 +40,9 @@ const OrderProducts = ({ index, product }) => {
             <ProductName>
               <b>Total Price:</b> $ {product?.price * product?.quantity}
             </ProductName>
-            <Link to={`/product/${product._id}`}>
+            <Link to={`/product/${product.productId}`}>
               <Button>Buy it again</Button>
+              {/* <Button onClick={()=> navigate(`/product/${product._id}`,{state:{product:product}})}>Buy it 222again</Button> */}
             </Link>
           </Details>
         </ProductDetail>
