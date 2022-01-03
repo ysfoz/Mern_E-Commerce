@@ -1,6 +1,5 @@
 import { Container, Circle, Image, Info, Icon } from "./styles/Product.style";
 import {
-  FavoriteBorderOutlined,
   SearchOutlined,
   ShoppingCartOutlined,
 } from "@material-ui/icons";
@@ -46,9 +45,7 @@ const Product = ({ item }) => {
             <SearchOutlined />
           </Link>
         </Icon>
-        <Icon>
-          <FavoriteBorderOutlined />
-        </Icon>
+       
       </Info>
     </Container>
   );
