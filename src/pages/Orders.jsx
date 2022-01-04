@@ -65,7 +65,7 @@ const ProductList = (props) => {
       </Top>
       {toasty && stripeData && (
         <Toasty>
-          You payed ${stripeData?.total} for {stripeData?.quantity} items
+          You payed ${stripeData?.total < 60 ? stripeData?.total + 5.9 : stripeData?.total} for {stripeData?.quantity} items
           succesfully`
         </Toasty>
       )}
