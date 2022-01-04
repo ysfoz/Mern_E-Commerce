@@ -11,9 +11,10 @@ import { deleteoneProductfromDB } from "../helper/requestMethods";
 const CartFooter = ({ product, inWhichList, seeLikeThisClicked }) => {
   const dispatch = useDispatch();
   const userId = useSelector((state) => state.user?.currentUser?._id);
+  const token = useSelector((state) => state.user?.jwtToken);
 
   const deleteItem = () => {
-    deleteoneProductfromDB(dispatch, userId, product?._id);
+    deleteoneProductfromDB(dispatch, userId, product?._id,token);
     dispatch(deleteSaveForLater(product._id)); // for redux
   };
 

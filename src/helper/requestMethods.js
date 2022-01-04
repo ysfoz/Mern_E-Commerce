@@ -15,12 +15,14 @@ import {
   deleteProduct,
   addProductsToOrders,
   setProductQuantity,
+  getCartWithLogin,
 } from "../redux/cartRedux";
 const BASE_URL = "https://mern-e-commerce-api.herokuapp.com/api/";
 
 const user = JSON.parse(localStorage.getItem("persist:root"))?.user;
 const currentUser = user && JSON.parse(user).currentUser;
 const TOKEN = currentUser?.jwtToken;
+console.log("🚀 ~ file: requestMethods.js ~ line 24 ~ TOKEN", TOKEN);
 
 export const publicRequest = axios.create({
   baseURL: BASE_URL,
@@ -31,18 +33,42 @@ export const userRequest = axios.create({
   headers: { token: `Bearer ${TOKEN}` },
 });
 
+
+
+
 // USER
 
 // Login
 export const login = async (dispatch, user) => {
   dispatch(getUserStart());
   try {
-    const res = await publicRequest.post("/auth/login", user);
-    console.log(res);
-    dispatch(loginSuccess(res?.data));
+    const res = await publicRequest.post("/auth/login", user).then(res=>{
+      dispatch(loginSuccess(res?.data));
+      getCart(dispatch,res?.data?._id,res?.data?.jwtToken)
+    })
+    
   } catch (error) {
     dispatch(getUserFailure());
   }
+};
+
+export const getCart = async (dispatch, id, token) => {
+  dispatch(getCartStart())
+  try {
+    const res = await axios.get(`${BASE_URL}carts/find/${id}`, {
+      headers: { token: `Bearer ${token}` },
+    });
+
+    dispatch(getCartWithLogin(res?.data?.products));
+    
+    
+  } catch (error) {
+    dispatch(getCartFailure());
+  }
+
+
+
+  
 };
 
 //Logout
@@ -94,10 +120,13 @@ export const deleteUser = async (id, dispatch) => {
 //Cart
 
 // create cart and add product +
-export const createUpdateCart = async (dispatch, id, product) => {
+export const createUpdateCart = async (dispatch, id,token, product) => {
+
   dispatch(getCartStart());
   try {
-    const res = await userRequest.post(`/carts/${id}`, product);
+    const res = await axios.post(`${BASE_URL}carts/${id}`, product, {
+      headers: { token: `Bearer ${token}` },
+    });
     dispatch(addProduct(res?.data?.products));
   } catch (error) {
     dispatch(getCartFailure());
@@ -106,10 +135,13 @@ export const createUpdateCart = async (dispatch, id, product) => {
 
 // change product quantity in cart +
 
-export const changeQuantityDB = async (dispatch, userId, id, quantity) => {
+export const changeQuantityDB = async (dispatch, userId, id, quantity,token) => {
   dispatch(getCartStart());
   try {
-    await userRequest.put(`/carts/${userId}`, { quantity, id });
+    await axios.put(`${BASE_URL}carts/${userId}`, { quantity, id }, {
+      headers: { token: `Bearer ${token}` },
+    });
+    // await userRequest.put(`/carts/${userId}`, { quantity, id });
 
     dispatch(setProductQuantity({ id, quantity }));
   } catch (error) {
@@ -119,10 +151,13 @@ export const changeQuantityDB = async (dispatch, userId, id, quantity) => {
 
 // delete nur ein product from cart +
 
-export const deleteoneProductfromDB = async (dispatch, userId, id) => {
+export const deleteoneProductfromDB = async (dispatch, userId, id,token) => {
   dispatch(getCartStart());
   try {
-    await userRequest.post(`/carts/delete/${userId}`, { id: id });
+    await axios.post(`${BASE_URL}carts/delete/${userId}`, { id: id }, {
+      headers: { token: `Bearer ${token}` },
+    });
+    // await userRequest.post(`/carts/delete/${userId}`, { id: id });
 
     dispatch(deleteProduct(id));
   } catch (error) {
@@ -135,20 +170,31 @@ export const deleteoneProductfromDB = async (dispatch, userId, id) => {
 export const moveProductstoOrdersAndDelete = async (
   dispatch,
   userId,
-  idList
+  idList,
+  token
 ) => {
   dispatch(getCartStart);
   try {
-    await userRequest
-      .delete(`/carts/${userId}`)
-      .then(increaseSaleAmount(userId, idList));
-    dispatch(addProductsToOrders());
+
+    await axios.delete(`${BASE_URL}carts/${userId}`, {
+      headers: { token: `Bearer ${token}` },
+    })
+    .then(increaseSaleAmount(userId, idList,token));
+  dispatch(addProductsToOrders());
+
+    // await userRequest.delete(`/carts/${userId}`)
+
   } catch (error) {
     dispatch(getCartFailure());
   }
 };
 
 // increase SAleAmount in DB
-export const increaseSaleAmount = async (userId, idList) => {
-  await userRequest.put(`/products/salesupdate/${userId}`, idList);
+export const increaseSaleAmount = async (userId, idList,token) => {
+
+  await axios.put(`${BASE_URL}products/salesupdate/${userId}`, idList, {
+    headers: { token: `Bearer ${token}` },
+  })
+
+  // await userRequest.put(`/products/salesupdate/${userId}`, idList);
 };

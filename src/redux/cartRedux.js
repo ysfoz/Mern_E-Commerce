@@ -29,6 +29,14 @@ const cartSlice = createSlice({
         state.total += state.products[i].price * state.products[i].quantity;
       }
     },
+    getCartWithLogin: (state, action) => {
+      state.total = 0;
+      state.products = action.payload;
+      state.quantity = state.products?.length;
+      for (let i = 0; i < state.products.length; i++) {
+        state.total += state.products[i].price * state.products[i].quantity;
+      }
+    },
 
     //+
     deleteProduct: (state, action) => {
@@ -113,5 +121,6 @@ export const {
   addProductsToOrders,
   setProductQuantity,
   removeall,
+  getCartWithLogin
 } = cartSlice.actions;
 export default cartSlice.reducer;

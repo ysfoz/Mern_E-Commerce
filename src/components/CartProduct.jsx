@@ -27,6 +27,7 @@ const CartProduct = ({
   const dispatch = useDispatch();
   const [quantity, setQuantity] = useState(product?.quantity);
   const userId = useSelector((state) => state.user?.currentUser?._id);
+  const token = useSelector((state) => state.user?.jwtToken);
   const handleQuantity = (type) => {
     if (type === "dec") {
       quantity > 1 && setQuantity((prev) => prev - 1);
@@ -36,7 +37,7 @@ const CartProduct = ({
   };
 
   useEffect(() => {
-    changeQuantityDB(dispatch, userId, product._id, quantity);
+    changeQuantityDB(dispatch, userId, product._id, quantity,token);
   }, [quantity]);
 
   return (

@@ -6,15 +6,16 @@ import {
 import React from "react";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { addProduct } from "../redux/cartRedux";
 import { createUpdateCart } from "../helper/requestMethods";
 
 const Product = ({ item }) => {
   const currentUser = useSelector((state) => state.user?.currentUser);
+  const token = useSelector((state) => state.user?.jwtToken);
+  console.log("🚀 ~ file: Product.jsx ~ line 14 ~ Product ~ token", token)
   const dispatch = useDispatch();
 
   const addProductToProductsList = () => {
-    createUpdateCart(dispatch, currentUser?._id, {
+    createUpdateCart(dispatch, currentUser?._id, token, {
       productId: item?._id,
       title: item?.title,
       price: item?.price,
@@ -23,14 +24,7 @@ const Product = ({ item }) => {
       color: item.color[0],
       size: item.size[0],
     });
-    dispatch(
-      addProduct({
-        ...item,
-        quantity: 1,
-        color: item.color[0],
-        size: item.size[0],
-      })
-    );
+   
   };
   return (
     <Container bg={item.inSale ? "rgba(251,233,231,0.3)" : "#f5fbfd"}>

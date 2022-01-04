@@ -42,6 +42,9 @@ const Product = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const currentUser = useSelector((state) => state.user.currentUser);
+  const token = useSelector((state) => state.user?.jwtToken);
+  console.log("🚀 ~ file: Product.jsx ~ line 46 ~ Product ~ token", token)
+  
 
   const fetchData = async () => {
     try {
@@ -63,7 +66,7 @@ const Product = () => {
   };
 
   const handleClick = () => {
-    createUpdateCart(dispatch, currentUser?._id, {
+    createUpdateCart(dispatch, currentUser?._id, token,{
       productId: product?._id,
       title: product?.title,
       price: product?.price,

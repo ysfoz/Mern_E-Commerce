@@ -19,6 +19,7 @@ import { moveProductstoOrdersAndDelete } from "../helper/requestMethods";
 const ProductList = (props) => {
   const [stripeData, setStripeData] = useState({});
   const orders = useSelector((state) => state.cart.orders);
+  const token = useSelector((state) => state.user?.jwtToken);
   const userId = useSelector((state) => state.user?.currentUser?._id);
   const location = useLocation();
   const navigate = useNavigate();
@@ -34,7 +35,7 @@ const ProductList = (props) => {
         total: location.state.total,
       });
       setToasty(true);
-      moveProductstoOrdersAndDelete(dispatch, userId, idList);
+      moveProductstoOrdersAndDelete(dispatch, userId, idList,token);
     }
   };
 
