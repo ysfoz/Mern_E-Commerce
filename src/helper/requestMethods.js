@@ -18,9 +18,9 @@ import {
 } from "../redux/cartRedux";
 const BASE_URL = "https://mern-e-commerce-api.herokuapp.com/api/";
 
-const TOKEN = JSON.parse(
-  JSON.parse(localStorage.getItem("persist:root"))?.user
-)?.jwtToken;
+const user = JSON.parse(localStorage.getItem("persist:root"))?.user;
+const currentUser = user && JSON.parse(user).currentUser;
+const TOKEN = currentUser?.jwtToken;
 
 export const publicRequest = axios.create({
   baseURL: BASE_URL,
