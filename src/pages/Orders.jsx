@@ -4,7 +4,7 @@ import {
   Toasty,
   TopButton,
   Top,
-  Wrapper
+  Wrapper,
 } from "./styles/Orders.style";
 import Navbar from "../components/Navbar";
 import Announcement from "../components/Announcement";
@@ -24,10 +24,12 @@ const ProductList = (props) => {
   const location = useLocation();
   const navigate = useNavigate();
   const [toasty, setToasty] = useState(false);
-  const [idList, setIdList] = useState();
   const dispatch = useDispatch();
   const setNavigateItems = () => {
     if (location.state) {
+      const idList = location.state.products.map(
+        (product) => product.productId
+      );
       setStripeData({
         stripeData: location.state.stripeData,
         products: location.state.products,
@@ -35,7 +37,7 @@ const ProductList = (props) => {
         total: location.state.total,
       });
       setToasty(true);
-      moveProductstoOrdersAndDelete(dispatch, userId, idList,token);
+      moveProductstoOrdersAndDelete(dispatch, userId, idList, token);
     }
   };
 
@@ -45,17 +47,11 @@ const ProductList = (props) => {
 
   useEffect(() => {
     toasty &&
-    setTimeout(() => {
-      setToasty(false);
-    }, 5000);
+      setTimeout(() => {
+        setToasty(false);
+        navigate({ state: {} });
+      }, 5000);
   }, [toasty]);
-
-  useEffect(() => {
-    const productIdList = stripeData?.products?.map(
-      (product) => product.productId
-    );
-    setIdList(productIdList);
-  }, [stripeData]);
 
   return (
     <Container>
@@ -66,17 +62,17 @@ const ProductList = (props) => {
       </Top>
       {toasty && stripeData && (
         <Toasty>
-          You payed ${stripeData?.total < 60 ? stripeData?.total + 5.9 : stripeData?.total} for {stripeData?.quantity} items
-          succesfully`
+          You payed $
+          {stripeData?.total < 60 ? stripeData?.total + 5.9 : stripeData?.total}{" "}
+          for {stripeData?.quantity} items succesfully`
         </Toasty>
       )}
       <OrdersContainer>
-        <Wrapper >
-
-        {orders?.map((product, i) => (
-          <OrderProducts product={product} key={i} />
+        <Wrapper>
+          {orders?.map((product, i) => (
+            <OrderProducts product={product} key={i} />
           ))}
-          </Wrapper>
+        </Wrapper>
       </OrdersContainer>
       <Newsletter />
       <Footer />

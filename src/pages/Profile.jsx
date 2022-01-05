@@ -34,6 +34,7 @@ import {
   getUserFailure,
   getUserUpdate,
 } from "../redux/userRedux";
+import {removeall} from "../redux/cartRedux"
 
 export default function User() {
   const location = useLocation();
@@ -120,8 +121,12 @@ export default function User() {
       const res = await axios.delete(
         `https://mern-e-commerce-api.herokuapp.com/api/users/${userId}`,
         { headers: { token } }
-      );
+      )
       dispatch(getUserUpdate());
+      await axios.delete(`https://mern-e-commerce-api.herokuapp.com/api/carts/${userId}`,
+      { headers: { token } }
+      )
+      dispatch(removeall())
     } catch (error) {
       dispatch(getUserFailure());
     }

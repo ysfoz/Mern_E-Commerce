@@ -30,6 +30,7 @@ const cartSlice = createSlice({
       }
     },
     getCartWithLogin: (state, action) => {
+      state.products = []
       state.total = 0;
       state.products = action.payload;
       state.quantity = state.products?.length;
@@ -106,6 +107,7 @@ const cartSlice = createSlice({
       state.saveforlater = [];
       state.quantity = 0;
       state.total = 0;
+      state.orders =[];
     },
   },
 });

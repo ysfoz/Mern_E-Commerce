@@ -52,7 +52,7 @@ const CartProduct = ({
             </ProductName>
             <ProductId>
               <b>ID:</b>
-              {product?._id}
+              {product?.productId}
             </ProductId>
             <ColorSizeContainer>
               <ProductColor color={product?.color} />

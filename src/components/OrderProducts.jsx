@@ -26,7 +26,7 @@ const OrderProducts = ({ index, product }) => {
             </ProductName>
             <ProductId>
               <b>ID:</b>
-              {product?._id}
+              {product?.productId}
             </ProductId>
             <ColorSizeContainer>
               <ProductColor color={product?.color} />
@@ -42,7 +42,6 @@ const OrderProducts = ({ index, product }) => {
             </ProductName>
             <Link to={`/product/${product.productId}`}>
               <Button>Buy it again</Button>
-              {/* <Button onClick={()=> navigate(`/product/${product._id}`,{state:{product:product}})}>Buy it 222again</Button> */}
             </Link>
           </Details>
         </ProductDetail>

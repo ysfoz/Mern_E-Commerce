@@ -1,19 +1,20 @@
 import styled from "styled-components";
-import { mobile,tablet } from "../../responsive";
+import { mobile, tablet } from "../../responsive";
 
 export const Container = styled.div`
   display: flex;
   width: 30%;
-  margin-left: 15px;
+  margin-left: 55px;
   flex-direction: column;
   margin-bottom: 20px;
   align-items: center;
-  ${mobile({width:"60%"})}
-  ${tablet({width:"35%"})}
+  ${mobile({ width: "60%", marginLeft: "40px" })}
+  ${tablet({ width: "35%", marginLeft: "40px" })}
 `;
 export const Image = styled.img`
-  flex: 1.3;
-  height: 56%;
+  flex: 1;
+  height: 200px;
+  width: auto; ;
 `;
 export const HeaderWrapper = styled.div`
   flex: 1;
@@ -47,12 +48,11 @@ export const FilterContainer = styled.div`
   justify-content: flex-start;
 `;
 
-export const Button = styled.button` 
-background-color: teal;
-color:white;
-border:none;
-border-radius: 5px;
-padding: 5px 10px;
-cursor:pointer;
-
-`
+export const Button = styled.button`
+  background-color: teal;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  padding: 5px 10px;
+  cursor: pointer;
+`;
