@@ -1,4 +1,4 @@
-import { mobile,tablet } from "../../responsive"
+import { mobile,tablet,ipadpro } from "../../responsive"
 import styled from "styled-components";
 
 export const Container = styled.div`
@@ -9,6 +9,7 @@ position: relative;
 overflow: hidden;
 ${mobile({display:"none"})}
 ${tablet("height:75vh")}
+${ipadpro("height:75vh")}
 
 
 
@@ -53,10 +54,12 @@ width: 100%;
 height: 100%;
 flex: 1;
 ${tablet("width:60%")}
+${ipadpro("width:60%")}
 `;
 export const Image = styled.img`
 height: 80%;
 ${tablet("height:65%")}
+${ipadpro("height:65%")}
 `;
 export const InfoContainer = styled.div`
 flex: 1;
@@ -66,6 +69,7 @@ padding: 50px;
 export const Title = styled.h1`
 font-size: 70px;
 ${tablet("font-size:30px")}
+${ipadpro("font-size:30px")}
 `;
 
 export const Desc = styled.p`
@@ -78,7 +82,6 @@ margin: 50px 0px;
 export const Button = styled.button`
 font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande",
     "Lucida Sans", Arial, sans-serif;
-  /* font-weight: bold; */
 color:teal;
 padding: 10px;
 font-size: 16px;
