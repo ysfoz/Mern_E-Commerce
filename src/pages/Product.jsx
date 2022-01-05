@@ -43,7 +43,7 @@ const Product = () => {
   const navigate = useNavigate();
   const currentUser = useSelector((state) => state.user.currentUser);
   const token = useSelector((state) => state.user?.jwtToken);
-  console.log("🚀 ~ file: Product.jsx ~ line 46 ~ Product ~ token", token)
+
   
 
   const fetchData = async () => {

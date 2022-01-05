@@ -55,6 +55,15 @@ const Navbar = (props) => {
               <Search style={{ color: "teal", fontSize: 16 }} />
             </SearchContainer>
           )}
+          {location?.pathname === "/login" && (
+            <SearchContainer>
+              <Input
+                placeholder="Search"
+                onChange={(e) => setUserInput(e.target.value)}
+              />
+              <Search style={{ color: "teal", fontSize: 16 }} />
+            </SearchContainer>
+          )}
           {location?.pathname.includes("products") && (
             <SearchContainer>
               <Input

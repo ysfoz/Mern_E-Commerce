@@ -78,6 +78,9 @@ const Products = ({ cat, filters, sort,homepage }) => {
   useEffect(() => {
     getAllData();
   }, [cat]);
+  useEffect(() => {
+    getAllData();
+  }, []);
 
   useEffect(() => {
     getFilteredData();

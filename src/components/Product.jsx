@@ -11,7 +11,6 @@ import { createUpdateCart } from "../helper/requestMethods";
 const Product = ({ item }) => {
   const currentUser = useSelector((state) => state.user?.currentUser);
   const token = useSelector((state) => state.user?.jwtToken);
-  console.log("🚀 ~ file: Product.jsx ~ line 14 ~ Product ~ token", token)
   const dispatch = useDispatch();
 
   const addProductToProductsList = () => {
