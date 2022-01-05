@@ -1,16 +1,36 @@
 
+# Links
+[Client Website  Heroku Link](https://shoppingoo.herokuapp.com/)
+<br>
+<br>
 
-## !!! This project hasn't completed yet !!!
-<br/>
-<br/>
+
+[Api Heroku Link](https://mern-e-commerce-api.herokuapp.com/)
+<br>
+<br>
+[Admin Panel Github Link](https://github.com/ysfoz/Mern_E-Commerce_AdminPanel)
+<br>
+[Admin Panel  Heroku Link](https://react-shop-admin.herokuapp.com/login)
+<br>
+username = admin
+<br>
+pass = 123456 
+
+# NOTE : 
+Save for later and orders button works only on Redux. So, you can not send products to Mongodb, that's why you should consider this situation on Payment.
 
 # For Stripe(payment) .env config
 
 REACT_APP_STRIPE = 
+<br/>
+<br/>
 
-# Heroku Api 
+Credit Card number : 4242 4242 4242 4242 
+<br>
+Ex : 12/25
+<br>
+CVC : 123
 
-This project's Backend created with Node.js & MongoDB and deployed [Heroku](https://mern-e-commerce-api.herokuapp.com/api)
 
 # Getting Started with Create React App
 
