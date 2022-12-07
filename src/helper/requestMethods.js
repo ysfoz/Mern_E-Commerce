@@ -17,7 +17,8 @@ import {
   setProductQuantity,
   getCartWithLogin,
 } from "../redux/cartRedux";
-const BASE_URL = "https://mern-e-commerce-api.herokuapp.com/api/";
+const BASE_URL = "https://shoppingoo-api.onrender.com/api/";
+// const BASE_URL = "http://localhost:8080/api/";
 
 const user = JSON.parse(localStorage.getItem("persist:root"))?.user;
 const currentUser = user && JSON.parse(user).currentUser;
