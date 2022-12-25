@@ -15,10 +15,10 @@ const Products = ({ cat, filters, sort,homepage }) => {
     try {
       const res = await axios.get(
         cat
-          // ? `http://localhost:8080/api/products?category=${cat}`
-          // : `http://localhost:8080/api/products`
-          ? `https://shoppingoo-api.onrender.com/api/products?category=${cat}`
-          : `https://shoppingoo-api.onrender.com/api/products`
+          ? `http://localhost:8080/api/products?category=${cat}`
+          : `http://localhost:8080/api/products`
+          // ? `https://shoppingoo-api.onrender.com/api/products?category=${cat}`
+          // : `https://shoppingoo-api.onrender.com/api/products`
       );
       if(cat==="summer" || cat ==="winter" || cat ==="accessories"){
         const filteredData = res?.data.filter((product)=> {

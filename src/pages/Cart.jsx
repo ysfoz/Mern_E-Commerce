@@ -69,8 +69,8 @@ const Cart = () => {
   const getData = async (twochar) => {
     try {
       const res = await axios.get(
-        "https://shoppingoo-api.onrender.com/api/products"
-        // "https://http://localhost:8080/api/products"
+        // "https://shoppingoo-api.onrender.com/api/products"
+        "http://localhost:8080/api/products"
       );
       const newData = res?.data.filter(
         (item) => item.title.slice(0, 2) === twochar
