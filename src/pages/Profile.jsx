@@ -104,8 +104,8 @@ export default function User() {
     try {
       const token = `Bearer ${jwtToken}`;
       const res = await axios.put(
-        // `https://mern-e-commerce-api.herokuapp.com/api/users/${userId}`,
-        `https://http://localhost:8080/api/users/${userId}`,
+        `https://shoppingoo-api.onrender.com/api/users/${userId}`,
+        // `https://http://localhost:8080/api/users/${userId}`,
         values,
         { headers: { token } }
       );
@@ -120,13 +120,13 @@ export default function User() {
     try {
       const token = `Bearer ${jwtToken}`;
       const res = await axios.delete(
-        // `https://mern-e-commerce-api.herokuapp.com/api/users/${userId}`,
-        `https://http://localhost:8080/api/users/${userId}`,
+        `https://shoppingoo-api.onrender.com/api/users/${userId}`,
+        // `https://http://localhost:8080/api/users/${userId}`,
         { headers: { token } }
       )
       dispatch(getUserUpdate());
-      // await axios.delete(`https://mern-e-commerce-api.herokuapp.com/api/carts/${userId}`,
-      await axios.delete(`http://localhost:8080/api/carts/${userId}`,
+      await axios.delete(`https://shoppingoo-api.onrender.com/api/carts/${userId}`,
+      // await axios.delete(`http://localhost:8080/api/carts/${userId}`,
       { headers: { token } }
       )
       dispatch(removeall())
