@@ -1,17 +1,5 @@
 
-# Links
-[Client Website  Heroku Link](https://shoppingoo.herokuapp.com/)
-<br>
-<br>
 
-
-[Api Heroku Link](https://mern-e-commerce-api.herokuapp.com/)
-<br>
-<br>
-[Admin Panel Github Link](https://github.com/ysfoz/Mern_E-Commerce_AdminPanel)
-<br>
-[Admin Panel  Heroku Link](https://react-shop-admin.herokuapp.com/login)
-<br>
 username = admin
 <br>
 pass = 123456 
